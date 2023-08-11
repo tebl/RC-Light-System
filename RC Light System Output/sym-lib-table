@@ -1,3 +1,5 @@
 (sym_lib_table
-  (lib (name rc_light_system)(type Legacy)(uri "D:/ownCloud/Documents/Projects/RC Light System/common/library/rc_light_system.lib")(options "")(descr ""))
+  (lib (name rc_light_system)(type Legacy)(uri $KIPRJMOD/../common/library/rc_light_system.lib)(options "")(descr ""))
+  (lib (name solder_select)(type Legacy)(uri $KIPRJMOD/../common/library/solder_select.lib)(options "")(descr ""))
+  (lib (name mounting)(type Legacy)(uri $KIPRJMOD/../common/library/mounting.lib)(options "")(descr ""))
 )

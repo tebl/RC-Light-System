@@ -21,7 +21,7 @@ AR Path="/64E48979" Ref="JP?"  Part="1"
 AR Path="/64E3CE93/64E48979" Ref="JP1"  Part="1" 
 F 0 "JP1" H 3850 2100 50  0000 C CNN
 F 1 "FL_LINK" H 3850 2191 50  0000 C CNN
-F 2 "" H 3850 2325 50  0001 C CNN
+F 2 "solder_bridge:bridge_open" H 3850 2325 50  0001 C CNN
 F 3 "~" H 3850 2325 50  0001 C CNN
 	1    3850 2325
 	-1   0    0    1   
@@ -34,7 +34,7 @@ AR Path="/64E4897F" Ref="J?"  Part="1"
 AR Path="/64E3CE93/64E4897F" Ref="J3"  Part="1" 
 F 0 "J3" H 3355 1725 50  0000 C CNN
 F 1 "FL_A" H 3355 1816 50  0000 C CNN
-F 2 "" H 3325 1850 50  0001 C CNN
+F 2 "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" H 3325 1850 50  0001 C CNN
 F 3 "~" H 3325 1850 50  0001 C CNN
 	1    3325 1850
 	1    0    0    1   
@@ -47,7 +47,7 @@ AR Path="/64E48985" Ref="R?"  Part="1"
 AR Path="/64E3CE93/64E48985" Ref="R1"  Part="1" 
 F 0 "R1" V 2379 2875 50  0000 C CNN
 F 1 "4k7" V 2470 2875 50  0000 C CNN
-F 2 "" H 2575 2875 50  0001 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 2575 2875 50  0001 C CNN
 F 3 "~" H 2575 2875 50  0001 C CNN
 	1    2575 2875
 	0    1    1    0   
@@ -60,7 +60,7 @@ AR Path="/64E4898B" Ref="Q?"  Part="1"
 AR Path="/64E3CE93/64E4898B" Ref="Q1"  Part="1" 
 F 0 "Q1" H 3140 2921 50  0000 L CNN
 F 1 "2N2222" H 3140 2830 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 3150 2800 50  0001 L CIN
+F 2 "Package_TO_SOT_THT:TO-92_HandSolder" H 3150 2800 50  0001 L CIN
 F 3 "https://www.onsemi.com/pub/Collateral/BC550-D.pdf" H 2950 2875 50  0001 L CNN
 	1    2950 2875
 	1    0    0    -1  
@@ -105,7 +105,7 @@ AR Path="/64E489A0" Ref="R?"  Part="1"
 AR Path="/64E3CE93/64E489A0" Ref="R2"  Part="1" 
 F 0 "R2" V 2854 2575 50  0000 C CNN
 F 1 "51" V 2945 2575 50  0000 C CNN
-F 2 "" H 3050 2575 50  0001 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 3050 2575 50  0001 C CNN
 F 3 "~" H 3050 2575 50  0001 C CNN
 	1    3050 2575
 	1    0    0    1   
@@ -126,7 +126,7 @@ AR Path="/64E489AB" Ref="J?"  Part="1"
 AR Path="/64E3CE93/64E489AB" Ref="J4"  Part="1" 
 F 0 "J4" H 4930 1725 50  0000 C CNN
 F 1 "FL_B" H 4930 1816 50  0000 C CNN
-F 2 "" H 4900 1850 50  0001 C CNN
+F 2 "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" H 4900 1850 50  0001 C CNN
 F 3 "~" H 4900 1850 50  0001 C CNN
 	1    4900 1850
 	1    0    0    1   
@@ -139,7 +139,7 @@ AR Path="/64E489B1" Ref="R?"  Part="1"
 AR Path="/64E3CE93/64E489B1" Ref="R3"  Part="1" 
 F 0 "R3" V 3954 2875 50  0000 C CNN
 F 1 "4k7" V 4045 2875 50  0000 C CNN
-F 2 "" H 4150 2875 50  0001 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 4150 2875 50  0001 C CNN
 F 3 "~" H 4150 2875 50  0001 C CNN
 	1    4150 2875
 	0    1    1    0   
@@ -152,7 +152,7 @@ AR Path="/64E489B7" Ref="Q?"  Part="1"
 AR Path="/64E3CE93/64E489B7" Ref="Q2"  Part="1" 
 F 0 "Q2" H 4715 2921 50  0000 L CNN
 F 1 "2N2222" H 4715 2830 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 4725 2800 50  0001 L CIN
+F 2 "Package_TO_SOT_THT:TO-92_HandSolder" H 4725 2800 50  0001 L CIN
 F 3 "https://www.onsemi.com/pub/Collateral/BC550-D.pdf" H 4525 2875 50  0001 L CNN
 	1    4525 2875
 	1    0    0    -1  
@@ -197,7 +197,7 @@ AR Path="/64E489CC" Ref="R?"  Part="1"
 AR Path="/64E3CE93/64E489CC" Ref="R4"  Part="1" 
 F 0 "R4" V 4429 2575 50  0000 C CNN
 F 1 "51" V 4520 2575 50  0000 C CNN
-F 2 "" H 4625 2575 50  0001 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 4625 2575 50  0001 C CNN
 F 3 "~" H 4625 2575 50  0001 C CNN
 	1    4625 2575
 	1    0    0    1   
@@ -228,7 +228,7 @@ AR Path="/64E6F06C" Ref="JP?"  Part="1"
 AR Path="/64E3CE93/64E6F06C" Ref="JP2"  Part="1" 
 F 0 "JP2" H 8150 2100 50  0000 C CNN
 F 1 "BR_LINK" H 8150 2191 50  0000 C CNN
-F 2 "" H 8150 2325 50  0001 C CNN
+F 2 "solder_bridge:bridge_open" H 8150 2325 50  0001 C CNN
 F 3 "~" H 8150 2325 50  0001 C CNN
 	1    8150 2325
 	-1   0    0    1   
@@ -241,7 +241,7 @@ AR Path="/64E6F072" Ref="J?"  Part="1"
 AR Path="/64E3CE93/64E6F072" Ref="J5"  Part="1" 
 F 0 "J5" H 7655 1725 50  0000 C CNN
 F 1 "BR_A" H 7655 1816 50  0000 C CNN
-F 2 "" H 7625 1850 50  0001 C CNN
+F 2 "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" H 7625 1850 50  0001 C CNN
 F 3 "~" H 7625 1850 50  0001 C CNN
 	1    7625 1850
 	1    0    0    1   
@@ -254,7 +254,7 @@ AR Path="/64E6F078" Ref="R?"  Part="1"
 AR Path="/64E3CE93/64E6F078" Ref="R5"  Part="1" 
 F 0 "R5" V 6679 2875 50  0000 C CNN
 F 1 "4k7" V 6770 2875 50  0000 C CNN
-F 2 "" H 6875 2875 50  0001 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 6875 2875 50  0001 C CNN
 F 3 "~" H 6875 2875 50  0001 C CNN
 	1    6875 2875
 	0    1    1    0   
@@ -267,7 +267,7 @@ AR Path="/64E6F07E" Ref="Q?"  Part="1"
 AR Path="/64E3CE93/64E6F07E" Ref="Q3"  Part="1" 
 F 0 "Q3" H 7440 2921 50  0000 L CNN
 F 1 "2N2222" H 7440 2830 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 7450 2800 50  0001 L CIN
+F 2 "Package_TO_SOT_THT:TO-92_HandSolder" H 7450 2800 50  0001 L CIN
 F 3 "https://www.onsemi.com/pub/Collateral/BC550-D.pdf" H 7250 2875 50  0001 L CNN
 	1    7250 2875
 	1    0    0    -1  
@@ -312,7 +312,7 @@ AR Path="/64E6F093" Ref="R?"  Part="1"
 AR Path="/64E3CE93/64E6F093" Ref="R6"  Part="1" 
 F 0 "R6" V 7154 2575 50  0000 C CNN
 F 1 "200" V 7245 2575 50  0000 C CNN
-F 2 "" H 7350 2575 50  0001 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 7350 2575 50  0001 C CNN
 F 3 "~" H 7350 2575 50  0001 C CNN
 	1    7350 2575
 	1    0    0    1   
@@ -333,7 +333,7 @@ AR Path="/64E6F09E" Ref="J?"  Part="1"
 AR Path="/64E3CE93/64E6F09E" Ref="J6"  Part="1" 
 F 0 "J6" H 9230 1725 50  0000 C CNN
 F 1 "BR_B" H 9230 1816 50  0000 C CNN
-F 2 "" H 9200 1850 50  0001 C CNN
+F 2 "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" H 9200 1850 50  0001 C CNN
 F 3 "~" H 9200 1850 50  0001 C CNN
 	1    9200 1850
 	1    0    0    1   
@@ -346,7 +346,7 @@ AR Path="/64E6F0A4" Ref="R?"  Part="1"
 AR Path="/64E3CE93/64E6F0A4" Ref="R7"  Part="1" 
 F 0 "R7" V 8254 2875 50  0000 C CNN
 F 1 "4k7" V 8345 2875 50  0000 C CNN
-F 2 "" H 8450 2875 50  0001 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 8450 2875 50  0001 C CNN
 F 3 "~" H 8450 2875 50  0001 C CNN
 	1    8450 2875
 	0    1    1    0   
@@ -359,7 +359,7 @@ AR Path="/64E6F0AA" Ref="Q?"  Part="1"
 AR Path="/64E3CE93/64E6F0AA" Ref="Q4"  Part="1" 
 F 0 "Q4" H 9015 2921 50  0000 L CNN
 F 1 "2N2222" H 9015 2830 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9025 2800 50  0001 L CIN
+F 2 "Package_TO_SOT_THT:TO-92_HandSolder" H 9025 2800 50  0001 L CIN
 F 3 "https://www.onsemi.com/pub/Collateral/BC550-D.pdf" H 8825 2875 50  0001 L CNN
 	1    8825 2875
 	1    0    0    -1  
@@ -404,7 +404,7 @@ AR Path="/64E6F0BF" Ref="R?"  Part="1"
 AR Path="/64E3CE93/64E6F0BF" Ref="R8"  Part="1" 
 F 0 "R8" V 8729 2575 50  0000 C CNN
 F 1 "200" V 8820 2575 50  0000 C CNN
-F 2 "" H 8925 2575 50  0001 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 8925 2575 50  0001 C CNN
 F 3 "~" H 8925 2575 50  0001 C CNN
 	1    8925 2575
 	1    0    0    1   
@@ -435,7 +435,7 @@ AR Path="/64E94315" Ref="JP?"  Part="1"
 AR Path="/64E3CE93/64E94315" Ref="JP3"  Part="1" 
 F 0 "JP3" H 3850 5075 50  0000 C CNN
 F 1 "BL_LINK" H 3850 5166 50  0000 C CNN
-F 2 "" H 3850 5300 50  0001 C CNN
+F 2 "solder_bridge:bridge_open" H 3850 5300 50  0001 C CNN
 F 3 "~" H 3850 5300 50  0001 C CNN
 	1    3850 5300
 	-1   0    0    1   
@@ -448,7 +448,7 @@ AR Path="/64E9431B" Ref="J?"  Part="1"
 AR Path="/64E3CE93/64E9431B" Ref="J7"  Part="1" 
 F 0 "J7" H 3355 4700 50  0000 C CNN
 F 1 "BL_L" H 3355 4791 50  0000 C CNN
-F 2 "" H 3325 4825 50  0001 C CNN
+F 2 "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" H 3325 4825 50  0001 C CNN
 F 3 "~" H 3325 4825 50  0001 C CNN
 	1    3325 4825
 	1    0    0    1   
@@ -461,7 +461,7 @@ AR Path="/64E94321" Ref="R?"  Part="1"
 AR Path="/64E3CE93/64E94321" Ref="R9"  Part="1" 
 F 0 "R9" V 2379 5925 50  0000 C CNN
 F 1 "4k7" V 2470 5925 50  0000 C CNN
-F 2 "" H 2575 5925 50  0001 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 2575 5925 50  0001 C CNN
 F 3 "~" H 2575 5925 50  0001 C CNN
 	1    2575 5925
 	0    1    1    0   
@@ -474,7 +474,7 @@ AR Path="/64E94327" Ref="Q?"  Part="1"
 AR Path="/64E3CE93/64E94327" Ref="Q5"  Part="1" 
 F 0 "Q5" H 3140 5971 50  0000 L CNN
 F 1 "2N2222" H 3140 5880 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 3150 5850 50  0001 L CIN
+F 2 "Package_TO_SOT_THT:TO-92_HandSolder" H 3150 5850 50  0001 L CIN
 F 3 "https://www.onsemi.com/pub/Collateral/BC550-D.pdf" H 2950 5925 50  0001 L CNN
 	1    2950 5925
 	1    0    0    -1  
@@ -519,7 +519,7 @@ AR Path="/64E9433C" Ref="R?"  Part="1"
 AR Path="/64E3CE93/64E9433C" Ref="R10"  Part="1" 
 F 0 "R10" V 2854 5550 50  0000 C CNN
 F 1 "180" V 2945 5550 50  0000 C CNN
-F 2 "" H 3050 5550 50  0001 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 3050 5550 50  0001 C CNN
 F 3 "~" H 3050 5550 50  0001 C CNN
 	1    3050 5550
 	1    0    0    1   
@@ -542,7 +542,7 @@ AR Path="/64E94347" Ref="J?"  Part="1"
 AR Path="/64E3CE93/64E94347" Ref="J8"  Part="1" 
 F 0 "J8" H 4930 4700 50  0000 C CNN
 F 1 "BL_R" H 4930 4791 50  0000 C CNN
-F 2 "" H 4900 4825 50  0001 C CNN
+F 2 "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" H 4900 4825 50  0001 C CNN
 F 3 "~" H 4900 4825 50  0001 C CNN
 	1    4900 4825
 	1    0    0    1   
@@ -555,7 +555,7 @@ AR Path="/64E9434D" Ref="R?"  Part="1"
 AR Path="/64E3CE93/64E9434D" Ref="R11"  Part="1" 
 F 0 "R11" V 3954 5925 50  0000 C CNN
 F 1 "4k7" V 4045 5925 50  0000 C CNN
-F 2 "" H 4150 5925 50  0001 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 4150 5925 50  0001 C CNN
 F 3 "~" H 4150 5925 50  0001 C CNN
 	1    4150 5925
 	0    1    1    0   
@@ -568,7 +568,7 @@ AR Path="/64E94353" Ref="Q?"  Part="1"
 AR Path="/64E3CE93/64E94353" Ref="Q6"  Part="1" 
 F 0 "Q6" H 4715 5971 50  0000 L CNN
 F 1 "2N2222" H 4715 5880 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 4725 5850 50  0001 L CIN
+F 2 "Package_TO_SOT_THT:TO-92_HandSolder" H 4725 5850 50  0001 L CIN
 F 3 "https://www.onsemi.com/pub/Collateral/BC550-D.pdf" H 4525 5925 50  0001 L CNN
 	1    4525 5925
 	1    0    0    -1  
@@ -613,7 +613,7 @@ AR Path="/64E94368" Ref="R?"  Part="1"
 AR Path="/64E3CE93/64E94368" Ref="R12"  Part="1" 
 F 0 "R12" V 4429 5550 50  0000 C CNN
 F 1 "180" V 4520 5550 50  0000 C CNN
-F 2 "" H 4625 5550 50  0001 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 4625 5550 50  0001 C CNN
 F 3 "~" H 4625 5550 50  0001 C CNN
 	1    4625 5550
 	1    0    0    1   
@@ -646,7 +646,7 @@ AR Path="/64EAD0B2" Ref="JP?"  Part="1"
 AR Path="/64E3CE93/64EAD0B2" Ref="JP4"  Part="1" 
 F 0 "JP4" H 8150 5075 50  0000 C CNN
 F 1 "EX_LINK" H 8150 5166 50  0000 C CNN
-F 2 "" H 8150 5300 50  0001 C CNN
+F 2 "solder_bridge:bridge_open" H 8150 5300 50  0001 C CNN
 F 3 "~" H 8150 5300 50  0001 C CNN
 	1    8150 5300
 	-1   0    0    1   
@@ -659,7 +659,7 @@ AR Path="/64EAD0B8" Ref="J?"  Part="1"
 AR Path="/64E3CE93/64EAD0B8" Ref="J9"  Part="1" 
 F 0 "J9" H 7655 4700 50  0000 C CNN
 F 1 "EX_A" H 7655 4791 50  0000 C CNN
-F 2 "" H 7625 4825 50  0001 C CNN
+F 2 "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" H 7625 4825 50  0001 C CNN
 F 3 "~" H 7625 4825 50  0001 C CNN
 	1    7625 4825
 	1    0    0    1   
@@ -672,7 +672,7 @@ AR Path="/64EAD0BE" Ref="R?"  Part="1"
 AR Path="/64E3CE93/64EAD0BE" Ref="R13"  Part="1" 
 F 0 "R13" V 6679 5925 50  0000 C CNN
 F 1 "4k7" V 6770 5925 50  0000 C CNN
-F 2 "" H 6875 5925 50  0001 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 6875 5925 50  0001 C CNN
 F 3 "~" H 6875 5925 50  0001 C CNN
 	1    6875 5925
 	0    1    1    0   
@@ -685,7 +685,7 @@ AR Path="/64EAD0C4" Ref="Q?"  Part="1"
 AR Path="/64E3CE93/64EAD0C4" Ref="Q7"  Part="1" 
 F 0 "Q7" H 7440 5971 50  0000 L CNN
 F 1 "2N2222" H 7440 5880 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 7450 5850 50  0001 L CIN
+F 2 "Package_TO_SOT_THT:TO-92_HandSolder" H 7450 5850 50  0001 L CIN
 F 3 "https://www.onsemi.com/pub/Collateral/BC550-D.pdf" H 7250 5925 50  0001 L CNN
 	1    7250 5925
 	1    0    0    -1  
@@ -729,8 +729,8 @@ P 7350 5550
 AR Path="/64EAD0D9" Ref="R?"  Part="1" 
 AR Path="/64E3CE93/64EAD0D9" Ref="R14"  Part="1" 
 F 0 "R14" V 7154 5550 50  0000 C CNN
-F 1 "4k7" V 7245 5550 50  0000 C CNN
-F 2 "" H 7350 5550 50  0001 C CNN
+F 1 "10" V 7245 5550 50  0000 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 7350 5550 50  0001 C CNN
 F 3 "~" H 7350 5550 50  0001 C CNN
 	1    7350 5550
 	1    0    0    1   
@@ -753,7 +753,7 @@ AR Path="/64EAD0E4" Ref="J?"  Part="1"
 AR Path="/64E3CE93/64EAD0E4" Ref="J10"  Part="1" 
 F 0 "J10" H 9230 4700 50  0000 C CNN
 F 1 "EX_B" H 9230 4791 50  0000 C CNN
-F 2 "" H 9200 4825 50  0001 C CNN
+F 2 "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" H 9200 4825 50  0001 C CNN
 F 3 "~" H 9200 4825 50  0001 C CNN
 	1    9200 4825
 	1    0    0    1   
@@ -766,7 +766,7 @@ AR Path="/64EAD0EA" Ref="R?"  Part="1"
 AR Path="/64E3CE93/64EAD0EA" Ref="R15"  Part="1" 
 F 0 "R15" V 8254 5925 50  0000 C CNN
 F 1 "4k7" V 8345 5925 50  0000 C CNN
-F 2 "" H 8450 5925 50  0001 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 8450 5925 50  0001 C CNN
 F 3 "~" H 8450 5925 50  0001 C CNN
 	1    8450 5925
 	0    1    1    0   
@@ -779,7 +779,7 @@ AR Path="/64EAD0F0" Ref="Q?"  Part="1"
 AR Path="/64E3CE93/64EAD0F0" Ref="Q8"  Part="1" 
 F 0 "Q8" H 9015 5971 50  0000 L CNN
 F 1 "2N2222" H 9015 5880 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9025 5850 50  0001 L CIN
+F 2 "Package_TO_SOT_THT:TO-92_HandSolder" H 9025 5850 50  0001 L CIN
 F 3 "https://www.onsemi.com/pub/Collateral/BC550-D.pdf" H 8825 5925 50  0001 L CNN
 	1    8825 5925
 	1    0    0    -1  
@@ -823,8 +823,8 @@ P 8925 5550
 AR Path="/64EAD105" Ref="R?"  Part="1" 
 AR Path="/64E3CE93/64EAD105" Ref="R16"  Part="1" 
 F 0 "R16" V 8729 5550 50  0000 C CNN
-F 1 "4k7" V 8820 5550 50  0000 C CNN
-F 2 "" H 8925 5550 50  0001 C CNN
+F 1 "10" V 8820 5550 50  0000 C CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 8925 5550 50  0001 C CNN
 F 3 "~" H 8925 5550 50  0001 C CNN
 	1    8925 5550
 	1    0    0    1   
@@ -919,4 +919,62 @@ Text Notes 2775 4500 0    50   ~ 0
 When linked, double R10/R12 value as\nstarting point. Unlinked, 2x LEDs for\nBL_L and BL_R if needed.
 Text Notes 550  1100 0    50   ~ 0
 VCC when calculating LED loading resistors\nhave been assumed to be at 8V, but you're\nreally supposed to do the actual calculations\nusing real information about how you're wiring\nit up and the components you're using.\n\nhttps://ledcalculator.net/
+Text Notes 7050 4175 0    50   ~ 0
+Assuming LEDs with resistors already\nin the lead, resistor as failsafe.
+$Comp
+L Device:R_Network08 RN1
+U 1 1 650C0AC6
+P 1500 7000
+F 0 "RN1" H 1020 6954 50  0000 R CNN
+F 1 "10k" H 1020 7045 50  0000 R CNN
+F 2 "Resistor_THT:R_Array_SIP9" V 1975 7000 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 1500 7000 50  0001 C CNN
+	1    1500 7000
+	1    0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 650C7DD0
+P 1100 7200
+AR Path="/650C7DD0" Ref="#PWR?"  Part="1" 
+AR Path="/64E3CE93/650C7DD0" Ref="#PWR0112"  Part="1" 
+F 0 "#PWR0112" H 1100 6950 50  0001 C CNN
+F 1 "GND" H 1105 7027 50  0000 C CNN
+F 2 "" H 1100 7200 50  0001 C CNN
+F 3 "" H 1100 7200 50  0001 C CNN
+	1    1100 7200
+	-1   0    0    -1  
+$EndComp
+Text GLabel 1100 6725 1    50   Input ~ 0
+FL_A
+Text GLabel 1200 6725 1    50   Input ~ 0
+FL_B
+Wire Wire Line
+	1100 6725 1100 6800
+Wire Wire Line
+	1800 6725 1800 6800
+Wire Wire Line
+	1700 6725 1700 6800
+Wire Wire Line
+	1600 6725 1600 6800
+Wire Wire Line
+	1500 6725 1500 6800
+Wire Wire Line
+	1400 6725 1400 6800
+Wire Wire Line
+	1300 6725 1300 6800
+Wire Wire Line
+	1200 6725 1200 6800
+Text GLabel 1300 6725 1    50   Input ~ 0
+BR_A
+Text GLabel 1400 6725 1    50   Input ~ 0
+BR_B
+Text GLabel 1500 6725 1    50   Input ~ 0
+BL_L
+Text GLabel 1600 6725 1    50   Input ~ 0
+BL_R
+Text GLabel 1700 6725 1    50   Input ~ 0
+EX_A
+Text GLabel 1800 6725 1    50   Input ~ 0
+EX_B
 $EndSCHEMATC
