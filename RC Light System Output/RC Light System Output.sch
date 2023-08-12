@@ -265,48 +265,4 @@ Wire Wire Line
 	6575 3550 7400 3550
 Wire Wire Line
 	6575 3650 7400 3650
-$Comp
-L mounting:Mounting M1
-U 1 1 6509087E
-P 10575 550
-F 0 "M1" H 10575 650 50  0001 C CNN
-F 1 "Mounting" H 10575 475 50  0001 C CNN
-F 2 "mounting:M3" H 10575 550 50  0001 C CNN
-F 3 "~" H 10575 550 50  0001 C CNN
-	1    10575 550 
-	1    0    0    -1  
-$EndComp
-$Comp
-L mounting:Mounting M2
-U 1 1 65090F96
-P 10700 550
-F 0 "M2" H 10700 650 50  0001 C CNN
-F 1 "Mounting" H 10700 475 50  0001 C CNN
-F 2 "mounting:M3" H 10700 550 50  0001 C CNN
-F 3 "~" H 10700 550 50  0001 C CNN
-	1    10700 550 
-	1    0    0    -1  
-$EndComp
-$Comp
-L mounting:Mounting M3
-U 1 1 65091332
-P 10825 550
-F 0 "M3" H 10825 650 50  0001 C CNN
-F 1 "Mounting" H 10825 475 50  0001 C CNN
-F 2 "mounting:M3" H 10825 550 50  0001 C CNN
-F 3 "~" H 10825 550 50  0001 C CNN
-	1    10825 550 
-	1    0    0    -1  
-$EndComp
-$Comp
-L mounting:Mounting M4
-U 1 1 65091634
-P 10950 550
-F 0 "M4" H 10950 650 50  0001 C CNN
-F 1 "Mounting" H 10950 475 50  0001 C CNN
-F 2 "mounting:M3" H 10950 550 50  0001 C CNN
-F 3 "~" H 10950 550 50  0001 C CNN
-	1    10950 550 
-	1    0    0    -1  
-$EndComp
 $EndSCHEMATC
