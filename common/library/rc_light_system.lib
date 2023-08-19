@@ -1,6 +1,54 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
+# Conn_Channel_Input
+#
+DEF Conn_Channel_Input J 0 40 Y N 1 F N
+F0 "J" 0 200 50 H V C CNN
+F1 "Conn_Channel_Input" 0 -200 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Connector*:*_1x??_*
+$ENDFPLIST
+DRAW
+T 0 25 0 50 0 1 1 +5v Normal 0 L C
+T 0 25 -100 50 0 1 1 DATA Normal 0 L C
+T 0 25 100 50 0 1 1 GND Normal 0 L C
+S -50 150 275 -150 0 1 10 f
+S -50 -95 0 -105 1 1 6 N
+S -50 5 0 -5 1 1 6 N
+S -50 105 0 95 1 1 6 N
+X GND 1 -200 100 150 R 50 50 1 1 P
+X +5V 2 -200 0 150 R 50 50 1 1 w
+X VCC 3 -200 -100 150 R 50 50 1 1 O
+ENDDRAW
+ENDDEF
+#
+# Conn_Channel_Output
+#
+DEF Conn_Channel_Output J 0 40 Y N 1 F N
+F0 "J" 0 200 50 H V C CNN
+F1 "Conn_Channel_Output" 0 -200 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Connector*:*_1x??_*
+$ENDFPLIST
+DRAW
+T 0 25 0 50 0 1 1 +5v Normal 0 L C
+T 0 25 -100 50 0 1 1 DATA Normal 0 L C
+T 0 25 100 50 0 1 1 GND Normal 0 L C
+S -50 150 275 -150 0 1 10 f
+S -50 -95 0 -105 1 1 6 N
+S -50 5 0 -5 1 1 6 N
+S -50 105 0 95 1 1 6 N
+X GND 1 -200 100 150 R 50 50 1 1 W
+X +5V 2 -200 0 150 R 50 50 1 1 W
+X VCC 3 -200 -100 150 R 50 50 1 1 I
+ENDDRAW
+ENDDEF
+#
 # Conn_Light_Input
 #
 DEF Conn_Light_Input J 0 40 Y N 1 F N
@@ -85,6 +133,27 @@ S -50 105 0 95 1 1 6 N
 S -50 205 0 195 1 1 6 N
 X GND 1 -200 200 150 R 50 50 1 1 P
 X +5V 2 -200 100 150 R 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Conn_Light_Power
+#
+DEF Conn_Light_Power J 0 40 Y N 1 F N
+F0 "J" 0 300 50 H V C CNN
+F1 "Conn_Light_Power" 0 -25 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Connector*:*_1x??_*
+$ENDFPLIST
+DRAW
+T 0 25 200 50 0 0 0 VCC Normal 0 L C
+T 0 25 100 50 0 1 1 GND Normal 0 L C
+S -50 250 275 50 0 0 10 f
+S -50 105 0 95 1 1 6 N
+S -50 205 0 195 1 1 6 N
+X VCC 1 -200 200 150 R 50 50 1 1 w
+X GND 2 -200 100 150 R 50 50 1 1 w
 ENDDRAW
 ENDDEF
 #
