@@ -1,6 +1,27 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
+# Device_Jumper_NO_Small
+#
+DEF Device_Jumper_NO_Small JP 0 30 N N 1 F N
+F0 "JP" 0 80 50 H V C CNN
+F1 "Device_Jumper_NO_Small" 10 -60 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ SolderJumper*Open*
+ Jumper*
+ TestPoint*2Pads*
+ TestPoint*Bridge*
+$ENDFPLIST
+DRAW
+C -40 0 20 0 1 0 N
+C 40 0 20 0 1 0 N
+X 1 1 -100 0 40 R 50 50 0 1 P
+X 2 2 100 0 40 L 50 50 0 1 P
+ENDDRAW
+ENDDEF
+#
 # Device_R_Small
 #
 DEF Device_R_Small R 0 10 N N 1 F N
@@ -167,7 +188,7 @@ $FPLIST
  Connector*:*_1x??_*
 $ENDFPLIST
 DRAW
-T 0 25 0 50 0 1 1 +5v Normal 0 L C
+T 0 25 0 50 0 1 1 BEC Normal 0 L C
 T 0 25 -100 50 0 1 1 DATA Normal 0 L C
 T 0 25 100 50 0 1 1 GND Normal 0 L C
 S -50 150 275 -150 0 1 10 f
@@ -175,7 +196,7 @@ S -50 -95 0 -105 1 1 6 N
 S -50 5 0 -5 1 1 6 N
 S -50 105 0 95 1 1 6 N
 X GND 1 -200 100 150 R 50 50 1 1 P
-X +5V 2 -200 0 150 R 50 50 1 1 w
+X BEC 2 -200 0 150 R 50 50 1 1 P
 X VCC 3 -200 -100 150 R 50 50 1 1 O
 ENDDRAW
 ENDDEF
@@ -191,7 +212,7 @@ $FPLIST
  Connector*:*_1x??_*
 $ENDFPLIST
 DRAW
-T 0 25 0 50 0 1 1 +5v Normal 0 L C
+T 0 25 0 50 0 1 1 BEC Normal 0 L C
 T 0 25 -100 50 0 1 1 DATA Normal 0 L C
 T 0 25 100 50 0 1 1 GND Normal 0 L C
 S -50 150 275 -150 0 1 10 f
@@ -199,7 +220,7 @@ S -50 -95 0 -105 1 1 6 N
 S -50 5 0 -5 1 1 6 N
 S -50 105 0 95 1 1 6 N
 X GND 1 -200 100 150 R 50 50 1 1 W
-X +5V 2 -200 0 150 R 50 50 1 1 W
+X BEC 2 -200 0 150 R 50 50 1 1 P
 X VCC 3 -200 -100 150 R 50 50 1 1 I
 ENDDRAW
 ENDDEF

@@ -977,4 +977,16 @@ Text GLabel 1700 6725 1    50   Input ~ 0
 EX_A
 Text GLabel 1800 6725 1    50   Input ~ 0
 EX_B
+Wire Notes Line
+	2725 3075 4975 3075
+Wire Notes Line
+	4975 3075 4975 3150
+Wire Notes Line
+	4975 3150 2725 3150
+Text Notes 2800 3825 0    50   ~ 0
+There should be a 1 Ohm resistor between the emitter\nand ground here, but it's large enough as it is. Use\ntransistors somewhat equal to eachother. I'll add it to\nSMD-version if I get around to it. If in doubt, don't link\nthe pairs.
+Wire Notes Line
+	2725 3450 2775 3450
+Wire Notes Line
+	2725 3075 2725 3450
 $EndSCHEMATC
