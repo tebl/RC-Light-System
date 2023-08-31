@@ -1,0 +1,6 @@
+(sym_lib_table
+  (lib (name rc_light_system)(type Legacy)(uri $KIPRJMOD/../common/library/rc_light_system.lib)(options "")(descr ""))
+  (lib (name solder_select)(type Legacy)(uri $KIPRJMOD/../common/library/solder_select.lib)(options "")(descr ""))
+  (lib (name mounting)(type Legacy)(uri $KIPRJMOD/../common/library/mounting.lib)(options "")(descr ""))
+  (lib (name arduino_pro_micro)(type Legacy)(uri $KIPRJMOD/../common/library/arduino_pro_micro.lib)(options "")(descr ""))
+)

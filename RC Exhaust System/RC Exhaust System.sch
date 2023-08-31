@@ -1,0 +1,333 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "RC Light System"
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 "ATTiny85 for *something*."
+Comment3 "them. Should probably have gone with something ready-made, but I wanted to use an"
+Comment4 "Found some exhaust tubes for a 1:10 model on AliExpress, let's add some glow effects to"
+$EndDescr
+$Comp
+L rc_light_system:Conn_Input J5
+U 1 1 64E92EE3
+P 3200 3675
+F 0 "J5" H 3505 3717 50  0000 L CNN
+F 1 "THR" H 3505 3626 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 3200 3675 50  0001 C CNN
+F 3 "~" H 3200 3675 50  0001 C CNN
+	1    3200 3675
+	-1   0    0    -1  
+$EndComp
+$Comp
+L rc_light_system:Conn_Channel_Output J6
+U 1 1 64E92EE9
+P 3200 4000
+F 0 "J6" H 3505 4042 50  0000 L CNN
+F 1 "THR_Y" H 3505 3951 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 3200 4000 50  0001 C CNN
+F 3 "~" H 3200 4000 50  0001 C CNN
+	1    3200 4000
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3550 3675 3550 4000
+Wire Wire Line
+	3625 3900 3625 3575
+Wire Wire Line
+	3625 3900 3625 4175
+Connection ~ 3625 3900
+$Comp
+L power:GND #PWR02
+U 1 1 64E92EF3
+P 3625 4175
+F 0 "#PWR02" H 3625 3925 50  0001 C CNN
+F 1 "GND" H 3630 4002 50  0000 C CNN
+F 2 "" H 3625 4175 50  0001 C CNN
+F 3 "" H 3625 4175 50  0001 C CNN
+	1    3625 4175
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3550 3675 3400 3675
+Wire Wire Line
+	3625 3575 3400 3575
+Wire Wire Line
+	3625 3900 3400 3900
+Wire Wire Line
+	3550 4000 3400 4000
+Wire Wire Line
+	3400 3775 3475 3775
+Wire Wire Line
+	3475 3775 3475 4100
+Wire Wire Line
+	3475 4100 3400 4100
+Wire Wire Line
+	3475 3775 3700 3775
+Connection ~ 3475 3775
+Wire Wire Line
+	3550 3675 3700 3675
+Wire Wire Line
+	3700 3675 3700 3575
+Connection ~ 3550 3675
+$Comp
+L power:VCC #PWR0101
+U 1 1 64EA9F8D
+P 3700 3575
+F 0 "#PWR0101" H 3700 3425 50  0001 C CNN
+F 1 "VCC" H 3715 3748 50  0000 C CNN
+F 2 "" H 3700 3575 50  0001 C CNN
+F 3 "" H 3700 3575 50  0001 C CNN
+	1    3700 3575
+	-1   0    0    -1  
+$EndComp
+Text GLabel 3700 3775 2    50   Output ~ 0
+THR
+$Comp
+L Device:C_Small C1
+U 1 1 64EB0385
+P 5150 4000
+F 0 "C1" H 5242 4046 50  0000 L CNN
+F 1 "100nF" H 5242 3955 50  0000 L CNN
+F 2 "Capacitor_THT:C_Disc_D4.7mm_W2.5mm_P5.00mm" H 5150 4000 50  0001 C CNN
+F 3 "~" H 5150 4000 50  0001 C CNN
+	1    5150 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP_Small C2
+U 1 1 64EB0B27
+P 6300 4000
+F 0 "C2" H 6388 4046 50  0000 L CNN
+F 1 "2.2uF" H 6388 3955 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D4.0mm_P2.00mm" H 6300 4000 50  0001 C CNN
+F 3 "~" H 6300 4000 50  0001 C CNN
+	1    6300 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L rc_light_system:L4931CZ50 U1
+U 1 1 64EB39D5
+P 5725 3675
+F 0 "U1" H 5725 3917 50  0000 C CNN
+F 1 "L4931CZ50" H 5725 3826 50  0000 C CNN
+F 2 "rc_light_system:L4931CZ50_TO-92_Inline_Wide" H 5750 3525 50  0001 L CIN
+F 3 "" H 5725 3625 50  0001 C CNN
+	1    5725 3675
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR0102
+U 1 1 64EB416B
+P 5150 3575
+F 0 "#PWR0102" H 5150 3425 50  0001 C CNN
+F 1 "VCC" H 5165 3748 50  0000 C CNN
+F 2 "" H 5150 3575 50  0001 C CNN
+F 3 "" H 5150 3575 50  0001 C CNN
+	1    5150 3575
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 4100 5150 4175
+Wire Wire Line
+	5150 4175 5725 4175
+Wire Wire Line
+	6300 4175 6300 4100
+Wire Wire Line
+	5725 3975 5725 4175
+Connection ~ 5725 4175
+Wire Wire Line
+	5725 4175 6300 4175
+Wire Wire Line
+	5725 4175 5725 4250
+$Comp
+L power:GND #PWR0103
+U 1 1 64EB7194
+P 5725 4250
+F 0 "#PWR0103" H 5725 4000 50  0001 C CNN
+F 1 "GND" H 5730 4077 50  0000 C CNN
+F 2 "" H 5725 4250 50  0001 C CNN
+F 3 "" H 5725 4250 50  0001 C CNN
+	1    5725 4250
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5425 3675 5150 3675
+Wire Wire Line
+	5150 3675 5150 3900
+Wire Wire Line
+	6025 3675 6300 3675
+Wire Wire Line
+	6300 3675 6300 3900
+Connection ~ 5150 3675
+Wire Wire Line
+	5150 3575 5150 3675
+$Comp
+L power:+5V #PWR0104
+U 1 1 64EB9D3A
+P 6300 3575
+F 0 "#PWR0104" H 6300 3425 50  0001 C CNN
+F 1 "+5V" H 6315 3748 50  0000 C CNN
+F 2 "" H 6300 3575 50  0001 C CNN
+F 3 "" H 6300 3575 50  0001 C CNN
+	1    6300 3575
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6300 3575 6300 3675
+Connection ~ 6300 3675
+$Comp
+L MCU_Microchip_ATtiny:ATtiny85-20PU U2
+U 1 1 64EBDFCC
+P 8150 3800
+F 0 "U2" H 8550 4425 50  0000 R CNN
+F 1 "ATtiny85-20PU" H 8825 4350 50  0000 R CNN
+F 2 "Package_DIP:DIP-8_W7.62mm" H 8150 3800 50  0001 C CIN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf" H 8150 3800 50  0001 C CNN
+	1    8150 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR01
+U 1 1 64EBEE71
+P 8150 3050
+F 0 "#PWR01" H 8150 2900 50  0001 C CNN
+F 1 "+5V" H 8165 3223 50  0000 C CNN
+F 2 "" H 8150 3050 50  0001 C CNN
+F 3 "" H 8150 3050 50  0001 C CNN
+	1    8150 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR03
+U 1 1 64EC594F
+P 8150 4400
+F 0 "#PWR03" H 8150 4150 50  0001 C CNN
+F 1 "GND" H 8155 4227 50  0000 C CNN
+F 2 "" H 8150 4400 50  0001 C CNN
+F 3 "" H 8150 4400 50  0001 C CNN
+	1    8150 4400
+	-1   0    0    -1  
+$EndComp
+NoConn ~ 8750 3800
+NoConn ~ 8750 3900
+NoConn ~ 8750 4000
+Text GLabel 8825 3700 2    50   Input ~ 0
+THR
+Wire Wire Line
+	8825 3700 8750 3700
+$Comp
+L Device:LED_Small D1
+U 1 1 64ECA3F7
+P 9075 3050
+F 0 "D1" V 9121 2980 50  0000 R CNN
+F 1 "LED" V 9030 2980 50  0000 R CNN
+F 2 "LED_THT:LED_D5.0mm" V 9075 3050 50  0001 C CNN
+F 3 "~" V 9075 3050 50  0001 C CNN
+	1    9075 3050
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:LED_Small D2
+U 1 1 64ECB3AD
+P 9525 3050
+F 0 "D2" V 9571 2980 50  0000 R CNN
+F 1 "LED" V 9480 2980 50  0000 R CNN
+F 2 "LED_THT:LED_D5.0mm" V 9525 3050 50  0001 C CNN
+F 3 "~" V 9525 3050 50  0001 C CNN
+	1    9525 3050
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+5V #PWR0105
+U 1 1 64ECC216
+P 9075 2875
+F 0 "#PWR0105" H 9075 2725 50  0001 C CNN
+F 1 "+5V" H 9090 3048 50  0000 C CNN
+F 2 "" H 9075 2875 50  0001 C CNN
+F 3 "" H 9075 2875 50  0001 C CNN
+	1    9075 2875
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0106
+U 1 1 64ECC9C4
+P 9525 2875
+F 0 "#PWR0106" H 9525 2725 50  0001 C CNN
+F 1 "+5V" H 9540 3048 50  0000 C CNN
+F 2 "" H 9525 2875 50  0001 C CNN
+F 3 "" H 9525 2875 50  0001 C CNN
+	1    9525 2875
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9075 2950 9075 2875
+Wire Wire Line
+	9525 2875 9525 2950
+$Comp
+L Device:R_Small R1
+U 1 1 64ECF255
+P 9075 3250
+F 0 "R1" H 9134 3296 50  0000 L CNN
+F 1 "270" H 9134 3205 50  0000 L CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 9075 3250 50  0001 C CNN
+F 3 "~" H 9075 3250 50  0001 C CNN
+	1    9075 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R2
+U 1 1 64ED38BC
+P 9525 3250
+F 0 "R2" H 9584 3296 50  0000 L CNN
+F 1 "270" H 9584 3205 50  0000 L CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 9525 3250 50  0001 C CNN
+F 3 "~" H 9525 3250 50  0001 C CNN
+	1    9525 3250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9075 3350 9075 3500
+Wire Wire Line
+	9075 3500 8750 3500
+Wire Wire Line
+	8750 3600 9525 3600
+Wire Wire Line
+	9525 3600 9525 3350
+$Comp
+L Device:C_Small C3
+U 1 1 64EE97D5
+P 7300 3400
+F 0 "C3" H 7392 3446 50  0000 L CNN
+F 1 "100nF" H 7392 3355 50  0000 L CNN
+F 2 "Capacitor_THT:C_Disc_D4.7mm_W2.5mm_P5.00mm" H 7300 3400 50  0001 C CNN
+F 3 "~" H 7300 3400 50  0001 C CNN
+	1    7300 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8150 3050 8150 3125
+Wire Wire Line
+	8150 3125 7300 3125
+Wire Wire Line
+	7300 3125 7300 3300
+Wire Wire Line
+	8150 3125 8150 3200
+Connection ~ 8150 3125
+$Comp
+L power:GND #PWR04
+U 1 1 64EEEC5C
+P 7300 3500
+F 0 "#PWR04" H 7300 3250 50  0001 C CNN
+F 1 "GND" H 7305 3327 50  0000 C CNN
+F 2 "" H 7300 3500 50  0001 C CNN
+F 3 "" H 7300 3500 50  0001 C CNN
+	1    7300 3500
+	-1   0    0    -1  
+$EndComp
+$EndSCHEMATC
