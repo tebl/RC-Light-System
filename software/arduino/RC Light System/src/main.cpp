@@ -10,11 +10,12 @@
 #define PIN_AUX 18
 #define PIN_VOL 21
 
+int thr_value = 0;
+int str_value = 0;
+
 volatile long thr_start = 0;
 volatile long thr_current_time = 0;
 volatile long thr_current_value = 0;
-int thr_value = 0;
-
 void on_changed_thr() {
   thr_current_time = micros();
   if (thr_current_time > thr_start) {
@@ -23,29 +24,56 @@ void on_changed_thr() {
   }
 }
 
-bool update_thr() {
-  if (thr_current_value < 2000) {
-    thr_value = thr_current_value;
-    return true;
+volatile long str_start = 0;
+volatile long str_current_time = 0;
+volatile long str_current_value = 0;
+void on_changed_str() {
+  str_current_time = micros();
+  if (str_current_time > str_start) {
+    str_current_value = str_current_time - str_start;
+    str_start = str_current_time;
   }
-  return false;
 }
 
 void setup() {
   pinMode(PIN_LED, OUTPUT);
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   pinMode(PIN_THR, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(PIN_THR), on_changed_thr, CHANGE);
 
+  pinMode(PIN_STR, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(PIN_STR), on_changed_str, CHANGE);
+}
+
+void update_values() {
+  if (thr_current_value < 2000) {
+    thr_value = thr_current_value;
+  }
+
+  if (str_current_value < 2000) {
+    str_value = str_current_value;
+  }
+}
+
+bool values_seen() {
+  if (thr_value == 0) return false;
+  if (str_value == 0) return false;
+  return true;
+}
+
+void print_values() {
+  Serial.print("THR=");
+  Serial.print(thr_value);
+  Serial.print(", STR=");
+  Serial.print(str_value);
+  Serial.println();
 }
 
 void loop() {
-  if (update_thr()) {
-    digitalWrite(PIN_LED, HIGH);
-    Serial.print("THR = ");
-    Serial.println(thr_value);
-  } else {
-    digitalWrite(PIN_LED, LOW);
+  update_values();
+
+  if (values_seen()) {
+    print_values();
   }
 }
