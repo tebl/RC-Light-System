@@ -1,20 +1,26 @@
 #include <Arduino.h>
 #include <ServoInput.h>
 #include "constants.h"
+#include "settings.h"
 
 const int ThrottleSignalPin = PIN_THR;
-const int ThrottlePulseMin = 1132;
-const int ThrottlePulseMax = 1956;
-ServoInputPin<ThrottleSignalPin> throttle(ThrottlePulseMin, ThrottlePulseMax);
+ServoInputPin<ThrottleSignalPin> throttle(THROTTLE_PULSE_MIN, THROTTLE_PULSE_MAX);
 
 const int SteeringSignalPin = PIN_STR;
-const int SteeringPulseMin = 1152;
-const int SteeringPulseMax = 1944;
-ServoInputPin<SteeringSignalPin> steering(SteeringPulseMin, SteeringPulseMax);
+ServoInputPin<SteeringSignalPin> steering(STEERING_PULSE_MIN, STEERING_PULSE_MAX);
 
+// State variables
 uint8_t led_state = 0x00;
-
+bool emergency_cycle = false;
 bool channels_dirty = false;
+
+// Buffered values
+int throttle_percent;
+float steering_angle;
+uint8_t last_led_state;
+int last_thr_state;
+int last_str_state;
+
 void write_channels() {
   digitalWrite(SER_LATCH, LOW);
   shiftOut(SER_DATA, SER_CLK_1, MSBFIRST, led_state);
@@ -24,7 +30,6 @@ void write_channels() {
 
 bool sync_channels() {
   if (channels_dirty) {
-    // print_values();
     write_channels();
     return true;
   }
@@ -36,16 +41,15 @@ void clear_channels() {
   write_channels();
 }
 
-void set_channel(uint8_t number, bool value = true) {
-  uint8_t old_state = led_state;
+void set_channel(uint8_t number, bool value) {
+  last_led_state = led_state;
   if (value) bitSet(led_state, number);
   else bitClear(led_state, number);
-  if (old_state != led_state) {
+  if (last_led_state != led_state) {
     channels_dirty = true;
   }
 }
 
-bool emergency_cycle = false;
 void flash_emergency() {
   emergency_cycle = !emergency_cycle;
   led_state = 0x00;
@@ -70,7 +74,6 @@ void setup() {
   clear_channels();
 }
 
-int throttle_percent;
 int get_thr_state() {
   throttle_percent = throttle.map(-100, 100);
   if (throttle_percent > 80) return THR_STICK_HIGH;
@@ -80,7 +83,6 @@ int get_thr_state() {
   return THR_STICK_IDLE;
 }
 
-float steering_angle;
 int get_str_state() {
   steering_angle = -(90 - steering.getAngle());
   if (steering_angle > 10) return STR_STICK_RIGHT;
@@ -109,40 +111,35 @@ void on_idle() {
 }
 
 void on_control() {
-  switch (get_thr_state()) {
+  last_thr_state = get_thr_state();
+  last_str_state = get_str_state();
+
+  switch (last_thr_state) {
     case THR_STICK_REVERSE_HIGH:
-      set_channel(LED_FL_A, false);
-      set_channel(LED_FL_B, false);
       set_channel(LED_BR_A, true);
       set_channel(LED_BR_B, true);
       break;
 
     case THR_STICK_REVERSE_LOW:
-      set_channel(LED_FL_A, false);
-      set_channel(LED_FL_B, false);
       set_channel(LED_BR_A, true);
-      set_channel(LED_BR_B, false);
+      set_channel(LED_BR_B, true);
       break;
 
     case THR_STICK_HIGH:
       set_channel(LED_FL_A, true);
       set_channel(LED_FL_B, true);
-      set_channel(LED_BR_A, false);
-      set_channel(LED_BR_B, false);
       break;
 
     case THR_STICK_LOW:
       set_channel(LED_FL_A, true);
-      set_channel(LED_FL_B, false);
-      set_channel(LED_BR_A, false);
-      set_channel(LED_BR_B, false);
+      set_channel(LED_FL_B, true);
       break;
 
     case THR_STICK_IDLE:
     default:
-      set_channel(LED_FL_A, false);
+      set_channel(LED_FL_A, true);
       set_channel(LED_FL_B, false);
-      set_channel(LED_BR_A, false);
+      set_channel(LED_BR_A, true);
       set_channel(LED_BR_B, false);
       on_idle();
       break;
@@ -161,8 +158,9 @@ void loop() {
   on_control();
 
   if (sync_channels()) {
-    print_values();
+    // print_values();
   }
+  // print_values();
   // flash_emergency();
   // delay(100);
   // print_values();
