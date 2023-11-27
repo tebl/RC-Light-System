@@ -90,49 +90,89 @@ int get_str_state() {
   return STR_STICK_IDLE;
 }
 
-void on_idle() {
-  switch (get_str_state()) {
+unsigned long last_blink = 0;
+bool blink_cycle = true;
+void control_blinkers() {
+  switch (last_str_state) {
     case STR_STICK_LEFT:
-      set_channel(LED_BL_L, true);
+      if (last_blink == 0) {
+        last_blink = millis();
+        blink_cycle = true;
+      } else {
+        if ((millis() - last_blink) >= 500) {
+          last_blink = millis();
+          blink_cycle = !blink_cycle;
+        }
+      }
+      set_channel(LED_BL_L, blink_cycle);
       set_channel(LED_BL_R, false);
       break;
 
     case STR_STICK_RIGHT:
+      if (last_blink == 0) {
+        last_blink = millis();
+        blink_cycle = true;
+      } else {
+        if ((millis() - last_blink) >= 500) {
+          last_blink = millis();
+          blink_cycle = !blink_cycle;
+        }
+      }
       set_channel(LED_BL_L, false);
-      set_channel(LED_BL_R, true);
+      set_channel(LED_BL_R, blink_cycle);
       break;
 
-    default:
     case STR_STICK_IDLE:
+      last_blink = 0;
       set_channel(LED_BL_L, false);
       set_channel(LED_BL_R, false);
       break;
   }
 }
 
-void on_control() {
+
+unsigned long last_active = millis();
+unsigned long last_throttle = millis();
+unsigned long last_steering = millis();
+void on_throttle() {
+  last_throttle = millis();
+  last_active = last_throttle;
+}
+
+void on_steering() {
+  last_steering = millis();
+  last_active = last_steering;
+}
+
+bool is_parked() {
+ return ((millis() - last_active) >= PARKED_THRESHOLD);
+}
+
+bool is_idle() {
+ return ((millis() - last_throttle) >= IDLE_THRESHOLD);
+}
+
+void control_leds() {
   last_thr_state = get_thr_state();
   last_str_state = get_str_state();
 
   switch (last_thr_state) {
-    case THR_STICK_REVERSE_HIGH:
-      set_channel(LED_BR_A, true);
-      set_channel(LED_BR_B, true);
-      break;
-
     case THR_STICK_REVERSE_LOW:
+    case THR_STICK_REVERSE_HIGH:
+      on_throttle();
+      set_channel(LED_FL_A, true);
+      set_channel(LED_FL_B, false);
       set_channel(LED_BR_A, true);
       set_channel(LED_BR_B, true);
-      break;
-
-    case THR_STICK_HIGH:
-      set_channel(LED_FL_A, true);
-      set_channel(LED_FL_B, true);
       break;
 
     case THR_STICK_LOW:
+    case THR_STICK_HIGH:
+      on_throttle();
       set_channel(LED_FL_A, true);
       set_channel(LED_FL_B, true);
+      set_channel(LED_BR_A, true);
+      set_channel(LED_BR_B, false);
       break;
 
     case THR_STICK_IDLE:
@@ -141,9 +181,41 @@ void on_control() {
       set_channel(LED_FL_B, false);
       set_channel(LED_BR_A, true);
       set_channel(LED_BR_B, false);
-      on_idle();
       break;
+  }
+
+  switch (last_str_state) {
+    case STR_STICK_LEFT:
+    case STR_STICK_RIGHT:
+      on_steering();
+      break;
+  
+    default:
+      break;
+  }
+
+  /* The logic here is that if we've not moved for quite some time, then
+   * we've parked and should shut off all lights. The blinkers quickly get
+   * annoying when they're going off every time we steer, so we'll only use
+   * those if we've come to a stop - we can't actually know that so we just
+   * assume that if you've not accelerated for a short period of time.
+   * 
+   * TODO: Change it so that only transitioning to a HIGH throttle states
+   *       disables the blinkers, that way we could blink while going slowly.
+   */
+  if (is_parked()) {
+    set_channel(LED_FL_A, false);
+    set_channel(LED_FL_B, false);
+    set_channel(LED_BR_A, false);
+    set_channel(LED_BR_B, false);
+  } else {
+    if (is_idle()) {
+      control_blinkers();
+    } else {
+      set_channel(LED_BL_L, false);
+      set_channel(LED_BL_R, false);
     }
+  }
 }
 
 void print_values() {
@@ -155,13 +227,9 @@ void print_values() {
 }
 
 void loop() {
-  on_control();
+  control_leds();
 
   if (sync_channels()) {
     // print_values();
   }
-  // print_values();
-  // flash_emergency();
-  // delay(100);
-  // print_values();
 }
