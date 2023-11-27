@@ -1,59 +1,18 @@
 #include <Arduino.h>
+#include <ServoInput.h>
+#include "constants.h"
 
-#define PIN_THR 2
-#define PIN_STR 3
-#define SER_LATCH 4
-#define SER_CLK_2 5
-#define SER_CLK_1 7
-#define SER_DATA 8
-#define PIN_LED 17
-#define PIN_AUX 18
-#define PIN_VOL 21
+const int ThrottleSignalPin = PIN_THR;
+const int ThrottlePulseMin = 1132;
+const int ThrottlePulseMax = 1956;
+ServoInputPin<ThrottleSignalPin> throttle(ThrottlePulseMin, ThrottlePulseMax);
 
-#define LED_FL_A 0
-#define LED_FL_B 1
-#define LED_BR_A 2
-#define LED_BR_B 3
-#define LED_BL_L 4
-#define LED_BL_R 5
-#define LED_EX_A 6
-#define LED_EX_B 7
+const int SteeringSignalPin = PIN_STR;
+const int SteeringPulseMin = 1152;
+const int SteeringPulseMax = 1944;
+ServoInputPin<SteeringSignalPin> steering(SteeringPulseMin, SteeringPulseMax);
 
 uint8_t led_state = 0x00;
-
-long thr_value = 0;
-long str_value = 0;
-long tmp_value = 0;
-
-volatile long thr_start = 0;
-volatile long thr_current_time = 0;
-volatile long thr_current_value = 0;
-void on_changed_thr() {
-  thr_current_time = micros();
-  if (thr_current_time > thr_start) {
-    thr_current_value = thr_current_time - thr_start;
-    thr_start = thr_current_time;
-  }
-}
-
-volatile long str_start = 0;
-volatile long str_current_time = 0;
-volatile long str_current_value = 0;
-void on_changed_str() {
-  str_current_time = micros();
-  if (str_current_time > str_start) {
-    str_current_value = str_current_time - str_start;
-    str_start = str_current_time;
-  }
-}
-
-void print_values() {
-  Serial.print("THR=");
-  Serial.print(thr_value);
-  Serial.print(", STR=");
-  Serial.print(str_value);
-  Serial.println();
-}
 
 bool channels_dirty = false;
 void write_channels() {
@@ -63,11 +22,13 @@ void write_channels() {
   channels_dirty = false;
 }
 
-void sync_channels() {
+bool sync_channels() {
   if (channels_dirty) {
     // print_values();
     write_channels();
+    return true;
   }
+  return false;
 }
 
 void clear_channels() {
@@ -79,11 +40,19 @@ void set_channel(uint8_t number, bool value = true) {
   uint8_t old_state = led_state;
   if (value) bitSet(led_state, number);
   else bitClear(led_state, number);
-  if (old_state == led_state) {
+  if (old_state != led_state) {
     channels_dirty = true;
   }
 }
 
+bool emergency_cycle = false;
+void flash_emergency() {
+  emergency_cycle = !emergency_cycle;
+  led_state = 0x00;
+  set_channel(LED_BL_L, emergency_cycle);
+  set_channel(LED_BL_R, emergency_cycle);
+  write_channels();
+}
 
 void setup() {
   pinMode(PIN_LED, OUTPUT);
@@ -94,72 +63,28 @@ void setup() {
   pinMode(SER_CLK_1, OUTPUT);
   pinMode(SER_CLK_2, OUTPUT);
   clear_channels();
-
-  pinMode(PIN_THR, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(PIN_THR), on_changed_thr, CHANGE);
-
-  pinMode(PIN_STR, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(PIN_STR), on_changed_str, CHANGE);
+  while (!ServoInput.available()) {
+    flash_emergency();
+		delay(250);
+	}
+  clear_channels();
 }
 
-void update_values() {
-  tmp_value = thr_current_value;
-  if (tmp_value < 2000) {
-    thr_value = tmp_value;
-  }
-
-  tmp_value = str_current_value;
-  if (tmp_value < 2000) {
-    str_value = tmp_value;
-  }
-}
-
-bool values_seen() {
-  if (thr_value == 0) return false;
-  if (str_value == 0) return false;
-  return true;
-}
-
-#define THR_STICK_REVERSE_HIGH -2
-#define THR_STICK_REVERSE_LOW -1
-#define THR_STICK_IDLE 0
-#define THR_STICK_LOW 1
-#define THR_STICK_HIGH 2
-
+int throttle_percent;
 int get_thr_state() {
-  if (thr_value > 1800) return THR_STICK_HIGH;
-  if (thr_value > 1600) return THR_STICK_LOW;
-  if (thr_value < 1250) return THR_STICK_REVERSE_HIGH;
-  if (thr_value < 1450) return THR_STICK_REVERSE_LOW;
+  throttle_percent = throttle.map(-100, 100);
+  if (throttle_percent > 80) return THR_STICK_HIGH;
+  if (throttle_percent > 10) return THR_STICK_LOW;
+  if (throttle_percent < -80) return THR_STICK_REVERSE_HIGH;
+  if (throttle_percent < -10) return THR_STICK_REVERSE_LOW;
   return THR_STICK_IDLE;
 }
 
-int last_thr_state = THR_STICK_IDLE;
-unsigned long last_thr_event = 0;
-int get_debounced_thr_state() {
-  int new_state = get_thr_state();
-
-  if (last_thr_state != new_state) {
-    long duration = millis() - last_thr_event;
-    if ((duration) > 250) {
-      last_thr_state = new_state;
-      last_thr_event = millis();
-
-      Serial.print("THR set to ");
-      Serial.print(last_thr_state);
-      Serial.print(" ");
-      Serial.println(duration);
-    }
-  }
-  return last_thr_state;
-}
-
-#define STR_STICK_LEFT -1
-#define STR_STICK_IDLE 0
-#define STR_STICK_RIGHT 1
+float steering_angle;
 int get_str_state() {
-  if (str_value > 1640) return STR_STICK_RIGHT;
-  if (str_value < 1450) return STR_STICK_LEFT;
+  steering_angle = -(90 - steering.getAngle());
+  if (steering_angle > 10) return STR_STICK_RIGHT;
+  if (steering_angle < -10) return STR_STICK_LEFT;
   return STR_STICK_IDLE;
 }
 
@@ -184,7 +109,7 @@ void on_idle() {
 }
 
 void on_control() {
-  switch (get_debounced_thr_state()) {
+  switch (get_thr_state()) {
     case THR_STICK_REVERSE_HIGH:
       set_channel(LED_FL_A, false);
       set_channel(LED_FL_B, false);
@@ -224,11 +149,21 @@ void on_control() {
     }
 }
 
-void loop() {
-  update_values();
+void print_values() {
+  Serial.print("THR=");
+  Serial.print(throttle_percent);
+  Serial.print(", STR=");
+  Serial.print(steering_angle);
+  Serial.println();
+}
 
-  if (values_seen()) {
-    on_control();
-    sync_channels();
+void loop() {
+  on_control();
+
+  if (sync_channels()) {
+    print_values();
   }
+  // flash_emergency();
+  // delay(100);
+  // print_values();
 }
