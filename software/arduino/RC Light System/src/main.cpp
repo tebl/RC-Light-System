@@ -76,17 +76,17 @@ void setup() {
 
 int get_thr_state() {
   throttle_percent = throttle.map(-100, 100);
-  if (throttle_percent > 80) return THR_STICK_HIGH;
-  if (throttle_percent > 10) return THR_STICK_LOW;
-  if (throttle_percent < -80) return THR_STICK_REVERSE_HIGH;
-  if (throttle_percent < -10) return THR_STICK_REVERSE_LOW;
+  if (throttle_percent > HIGH_THRESHOLD) return THR_STICK_HIGH;
+  if (throttle_percent > LOW_THRESHOLD) return THR_STICK_LOW;
+  if (throttle_percent < -HIGH_THRESHOLD) return THR_STICK_REVERSE_HIGH;
+  if (throttle_percent < -LOW_THRESHOLD) return THR_STICK_REVERSE_LOW;
   return THR_STICK_IDLE;
 }
 
 int get_str_state() {
   steering_angle = -(90 - steering.getAngle());
-  if (steering_angle > 10) return STR_STICK_RIGHT;
-  if (steering_angle < -10) return STR_STICK_LEFT;
+  if (steering_angle > BLINKER_DEADZONE) return STR_STICK_RIGHT;
+  if (steering_angle < -BLINKER_DEADZONE) return STR_STICK_LEFT;
   return STR_STICK_IDLE;
 }
 
@@ -99,7 +99,7 @@ void control_blinkers() {
         last_blink = millis();
         blink_cycle = true;
       } else {
-        if ((millis() - last_blink) >= 500) {
+        if ((millis() - last_blink) >= BLINKER_PERIOD) {
           last_blink = millis();
           blink_cycle = !blink_cycle;
         }
@@ -113,7 +113,7 @@ void control_blinkers() {
         last_blink = millis();
         blink_cycle = true;
       } else {
-        if ((millis() - last_blink) >= 500) {
+        if ((millis() - last_blink) >= BLINKER_PERIOD) {
           last_blink = millis();
           blink_cycle = !blink_cycle;
         }
