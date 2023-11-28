@@ -3,9 +3,9 @@
  * receiver combination. Failiure to do so may cause the lighting system to
  * trigger prematurely or not at all.
  */
-#define THROTTLE_PULSE_MIN 1132
+#define THROTTLE_PULSE_MIN 1136
 #define THROTTLE_PULSE_MAX 1956
-#define STEERING_PULSE_MIN 1152
+#define STEERING_PULSE_MIN 1124
 #define STEERING_PULSE_MAX 1944
 
 /* The blinkers quickly get annoying, so they're only used when we can assume
@@ -42,4 +42,4 @@
  * probably between 250 (2 flashes per second) and 500 (1 flash per second). 
 */
 #define BLINKER_DEADZONE 10
-#define BLINKER_PERIOD 500
+#define BLINKER_PERIOD 375
