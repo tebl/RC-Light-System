@@ -1,4 +1,4 @@
-19057093919259002
+19058885338598039
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -83103,6 +83103,13 @@ to-92 sc-43 sc-43a sot54 PA33 transistor
 0
 3
 3
+rc_light_system
+Testpoint
+
+
+0
+1
+1
 resistor
 R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
 Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=7.62mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf

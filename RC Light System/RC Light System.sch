@@ -36,36 +36,13 @@ Wire Wire Line
 	3500 3650 3425 3650
 Wire Wire Line
 	3425 2300 3575 2300
-$Comp
-L power:+5V #PWR0105
-U 1 1 64D600E3
-P 3575 1900
-F 0 "#PWR0105" H 3575 1750 50  0001 C CNN
-F 1 "+5V" H 3590 2073 50  0000 C CNN
-F 2 "" H 3575 1900 50  0001 C CNN
-F 3 "" H 3575 1900 50  0001 C CNN
-	1    3575 1900
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	3575 3750 3425 3750
 Connection ~ 3575 2300
-$Comp
-L power:VCC #PWR0106
-U 1 1 64D62764
-P 3800 1900
-F 0 "#PWR0106" H 3800 1750 50  0001 C CNN
-F 1 "VCC" H 3815 2073 50  0000 C CNN
-F 2 "" H 3800 1900 50  0001 C CNN
-F 3 "" H 3800 1900 50  0001 C CNN
-	1    3800 1900
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	3800 2400 3425 2400
 Wire Wire Line
 	3800 3850 3425 3850
-Connection ~ 3800 2400
 Wire Wire Line
 	3950 4050 3425 4050
 Wire Wire Line
@@ -139,85 +116,7 @@ Connection ~ 5850 3650
 Wire Wire Line
 	5850 3650 5750 3650
 NoConn ~ 5375 2225
-NoConn ~ 5375 2325
 NoConn ~ 6325 2425
-$Comp
-L power:+5V #PWR0104
-U 1 1 64E266A1
-P 5850 1900
-F 0 "#PWR0104" H 5850 1750 50  0001 C CNN
-F 1 "+5V" H 5865 2073 50  0000 C CNN
-F 2 "" H 5850 1900 50  0001 C CNN
-F 3 "" H 5850 1900 50  0001 C CNN
-	1    5850 1900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R1
-U 1 1 64E270C7
-P 7025 2425
-F 0 "R1" H 7084 2471 50  0000 L CNN
-F 1 "470" H 7084 2380 50  0000 L CNN
-F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 7025 2425 50  0001 C CNN
-F 3 "~" H 7025 2425 50  0001 C CNN
-	1    7025 2425
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R2
-U 1 1 64E2743A
-P 7025 2825
-F 0 "R2" H 7084 2871 50  0000 L CNN
-F 1 "560" H 7084 2780 50  0000 L CNN
-F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 7025 2825 50  0001 C CNN
-F 3 "~" H 7025 2825 50  0001 C CNN
-	1    7025 2825
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0108
-U 1 1 64E28E5F
-P 7025 3000
-F 0 "#PWR0108" H 7025 2750 50  0001 C CNN
-F 1 "GND" H 7030 2827 50  0000 C CNN
-F 2 "" H 7025 3000 50  0001 C CNN
-F 3 "" H 7025 3000 50  0001 C CNN
-	1    7025 3000
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	7025 3000 7025 2925
-$Comp
-L power:VCC #PWR0109
-U 1 1 64E2A792
-P 7025 1900
-F 0 "#PWR0109" H 7025 1750 50  0001 C CNN
-F 1 "VCC" H 7040 2073 50  0000 C CNN
-F 2 "" H 7025 1900 50  0001 C CNN
-F 3 "" H 7025 1900 50  0001 C CNN
-	1    7025 1900
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	5850 1900 5850 1975
-Connection ~ 7025 2625
-Wire Wire Line
-	7025 1900 7025 2225
-Wire Wire Line
-	6325 2625 7025 2625
-Wire Wire Line
-	6325 2225 7025 2225
-Wire Wire Line
-	7025 2225 7025 2325
-Connection ~ 7025 2225
-Wire Wire Line
-	7025 2525 7025 2625
-Wire Wire Line
-	7025 2625 7025 2725
-Wire Wire Line
-	3575 1900 3575 2300
-Wire Wire Line
-	3800 1900 3800 2400
 Wire Wire Line
 	5375 2725 5300 2725
 Wire Wire Line
@@ -366,111 +265,16 @@ Wire Wire Line
 Wire Wire Line
 	8050 5850 8125 5850
 $Comp
-L rc_light_system:Conn_Light_Power J9
-U 1 1 64ECF7C9
-P 7925 2425
-F 0 "J9" H 8229 2617 50  0000 L CNN
-F 1 "VBATT" H 8229 2526 50  0000 L CNN
-F 2 "rc_light_system:Conn_Light_Power" H 7925 2425 50  0001 C CNN
-F 3 "~" H 7925 2425 50  0001 C CNN
-	1    7925 2425
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR04
-U 1 1 64EDC2FA
-P 7650 2400
-F 0 "#PWR04" H 7650 2150 50  0001 C CNN
-F 1 "GND" H 7655 2227 50  0000 C CNN
-F 2 "" H 7650 2400 50  0001 C CNN
-F 3 "" H 7650 2400 50  0001 C CNN
-	1    7650 2400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7650 2400 7650 2325
-Wire Wire Line
-	7650 2325 7725 2325
-$Comp
-L Diode:1N5819 D1
-U 1 1 64F0802B
-P 7500 2225
-F 0 "D1" H 7500 2442 50  0000 C CNN
-F 1 "1N5819" H 7500 2351 50  0000 C CNN
-F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 7500 2050 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/88525/1n5817.pdf" H 7500 2225 50  0001 C CNN
-	1    7500 2225
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7650 2225 7725 2225
-$Comp
-L power:PWR_FLAG #FLG0101
-U 1 1 64F0A5A9
-P 7225 1900
-F 0 "#FLG0101" H 7225 1975 50  0001 C CNN
-F 1 "PWR_FLAG" H 7225 2073 50  0001 C CNN
-F 2 "" H 7225 1900 50  0001 C CNN
-F 3 "~" H 7225 1900 50  0001 C CNN
-	1    7225 1900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7225 1900 7225 2225
-Connection ~ 7225 2225
-Wire Wire Line
-	7225 2225 7350 2225
-Wire Wire Line
-	7025 2225 7225 2225
-$Comp
 L rc_light_system:Conn_Channel_Input J10
 U 1 1 64E6F1A8
-P 3325 5425
-F 0 "J10" H 3629 5467 50  0000 L CNN
-F 1 "BIND_IN" H 3629 5376 50  0000 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 3325 5425 50  0001 C CNN
-F 3 "~" H 3325 5425 50  0001 C CNN
-	1    3325 5425
-	1    0    0    -1  
+P 2850 5425
+F 0 "J10" H 3154 5467 50  0000 L CNN
+F 1 "BIND_IN" H 3154 5376 50  0000 L CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 2850 5425 50  0001 C CNN
+F 3 "~" H 2850 5425 50  0001 C CNN
+	1    2850 5425
+	-1   0    0    -1  
 $EndComp
-NoConn ~ 3125 5425
-$Comp
-L Device:Jumper_NO_Small JP1
-U 1 1 64E75A17
-P 3050 5700
-F 0 "JP1" V 3096 5652 50  0000 R CNN
-F 1 "BIND" V 3005 5652 50  0000 R CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 3050 5700 50  0001 C CNN
-F 3 "~" H 3050 5700 50  0001 C CNN
-	1    3050 5700
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	3125 5525 3050 5525
-Wire Wire Line
-	3050 5525 3050 5600
-$Comp
-L power:GND #PWR0101
-U 1 1 64E97454
-P 3050 5950
-F 0 "#PWR0101" H 3050 5700 50  0001 C CNN
-F 1 "GND" H 3055 5777 50  0000 C CNN
-F 2 "" H 3050 5950 50  0001 C CNN
-F 3 "" H 3050 5950 50  0001 C CNN
-	1    3050 5950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3050 5800 3050 5875
-Wire Wire Line
-	3050 5875 2975 5875
-Wire Wire Line
-	2975 5875 2975 5325
-Wire Wire Line
-	2975 5325 3125 5325
-Connection ~ 3050 5875
-Wire Wire Line
-	3050 5875 3050 5950
 Wire Wire Line
 	4950 5750 4950 6250
 Wire Wire Line
@@ -481,10 +285,6 @@ Wire Wire Line
 	7975 6250 7975 5750
 Connection ~ 6450 6250
 Connection ~ 7975 5750
-Text Label 4975 6250 0    50   ~ 0
-BEC
-Wire Wire Line
-	6400 2925 6325 2925
 NoConn ~ 6325 3225
 Wire Wire Line
 	5075 2600 5075 3125
@@ -521,14 +321,12 @@ Text GLabel 5300 3650 3    50   Output ~ 0
 STR
 Text GLabel 5225 3875 3    50   Output ~ 0
 THR
-Text GLabel 6400 3875 3    50   Output ~ 0
+Text GLabel 5300 2325 0    50   Output ~ 0
 AUX
 Wire Wire Line
 	5300 3650 5300 2725
 Wire Wire Line
 	5225 2625 5225 3875
-Wire Wire Line
-	6400 3875 6400 2925
 Text GLabel 4775 5175 1    50   Input ~ 0
 THR
 $Comp
@@ -686,4 +484,257 @@ Wire Wire Line
 	4950 6250 6450 6250
 Wire Wire Line
 	6450 6250 7975 6250
+Wire Wire Line
+	5300 2325 5375 2325
+NoConn ~ 6325 2925
+NoConn ~ 6325 2225
+$Comp
+L Diode:1N4001 D1
+U 1 1 656D8D5E
+P 4200 1900
+F 0 "D1" H 4200 1683 50  0000 C CNN
+F 1 "1N4001" H 4200 1774 50  0000 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 4200 1725 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 4200 1900 50  0001 C CNN
+	1    4200 1900
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:Jumper_NC_Small JP2
+U 1 1 656E23E1
+P 4650 1900
+F 0 "JP2" H 4650 2112 50  0000 C CNN
+F 1 "POWER" H 4650 2021 50  0000 C CNN
+F 2 "solder_bridge:bridge" H 4650 1900 50  0001 C CNN
+F 3 "~" H 4650 1900 50  0001 C CNN
+	1    4650 1900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4350 1900 4550 1900
+NoConn ~ 6325 2625
+Wire Wire Line
+	3800 6250 4950 6250
+Connection ~ 3800 3850
+Connection ~ 4950 6250
+Wire Wire Line
+	5850 1900 5850 1975
+Wire Wire Line
+	3800 2400 3800 1900
+Wire Wire Line
+	3800 1900 4050 1900
+Connection ~ 3800 2400
+Wire Wire Line
+	3475 5325 3050 5325
+Connection ~ 3800 5425
+Wire Wire Line
+	3800 5425 3800 6250
+$Comp
+L power:PWR_FLAG #FLG0101
+U 1 1 657816EC
+P 3475 5250
+F 0 "#FLG0101" H 3475 5325 50  0001 C CNN
+F 1 "PWR_FLAG" H 3475 5423 50  0000 C CNN
+F 2 "" H 3475 5250 50  0001 C CNN
+F 3 "~" H 3475 5250 50  0001 C CNN
+	1    3475 5250
+	1    0    0    -1  
+$EndComp
+Connection ~ 3475 5325
+$Comp
+L power:PWR_FLAG #FLG0102
+U 1 1 65782122
+P 3650 5350
+F 0 "#FLG0102" H 3650 5425 50  0001 C CNN
+F 1 "PWR_FLAG" H 3650 5523 50  0001 C CNN
+F 2 "" H 3650 5350 50  0001 C CNN
+F 3 "~" H 3650 5350 50  0001 C CNN
+	1    3650 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3650 5425 3800 5425
+Wire Wire Line
+	3050 5425 3650 5425
+Connection ~ 3650 5425
+Wire Wire Line
+	3650 5350 3650 5425
+Wire Wire Line
+	3475 5250 3475 5325
+Wire Wire Line
+	3575 1500 5850 1500
+Wire Wire Line
+	5850 1500 5850 1900
+Wire Wire Line
+	3575 1500 3575 2300
+Connection ~ 5850 1900
+Text Label 4950 1900 0    50   ~ 0
++5v
+Wire Wire Line
+	3475 5875 3475 5325
+$Comp
+L power:GND #PWR0101
+U 1 1 64E97454
+P 3400 5950
+F 0 "#PWR0101" H 3400 5700 50  0001 C CNN
+F 1 "GND" H 3405 5777 50  0000 C CNN
+F 2 "" H 3400 5950 50  0001 C CNN
+F 3 "" H 3400 5950 50  0001 C CNN
+	1    3400 5950
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3400 5875 3475 5875
+Wire Wire Line
+	3400 5875 3400 5950
+Connection ~ 3400 5875
+Wire Wire Line
+	3400 5800 3400 5875
+Wire Wire Line
+	3400 5525 3050 5525
+Wire Wire Line
+	3400 5525 3400 5600
+$Comp
+L Device:Jumper_NO_Small JP1
+U 1 1 64E75A17
+P 3400 5700
+F 0 "JP1" V 3446 5652 50  0000 R CNN
+F 1 "BIND" V 3355 5652 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 3400 5700 50  0001 C CNN
+F 3 "~" H 3400 5700 50  0001 C CNN
+	1    3400 5700
+	0    1    -1   0   
+$EndComp
+$Comp
+L rc_light_system:Conn_Channel_Output J9
+U 1 1 657D93BB
+P 5300 5100
+F 0 "J9" H 5604 5142 50  0000 L CNN
+F 1 "THR_Y" H 5604 5051 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 5300 5100 50  0001 C CNN
+F 3 "~" H 5300 5100 50  0001 C CNN
+	1    5300 5100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4875 5325 4875 5000
+Wire Wire Line
+	4875 5000 5100 5000
+Connection ~ 4875 5325
+Wire Wire Line
+	5100 5100 4950 5100
+Wire Wire Line
+	4950 5100 4950 5425
+Connection ~ 4950 5425
+Wire Wire Line
+	5100 5200 5025 5200
+Wire Wire Line
+	5025 5200 5025 5525
+$Comp
+L rc_light_system:Conn_Channel_Output J11
+U 1 1 657EBDFE
+P 6800 5100
+F 0 "J11" H 7104 5142 50  0000 L CNN
+F 1 "STR_Y" H 7104 5051 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 6800 5100 50  0001 C CNN
+F 3 "~" H 6800 5100 50  0001 C CNN
+	1    6800 5100
+	1    0    0    -1  
+$EndComp
+$Comp
+L rc_light_system:Conn_Channel_Output J12
+U 1 1 657ECF90
+P 8325 5100
+F 0 "J12" H 8629 5142 50  0000 L CNN
+F 1 "AUX_Y" H 8629 5051 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 8325 5100 50  0001 C CNN
+F 3 "~" H 8325 5100 50  0001 C CNN
+	1    8325 5100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6375 5325 6375 5000
+Wire Wire Line
+	6375 5000 6600 5000
+Connection ~ 6375 5325
+Wire Wire Line
+	7900 5325 7900 5000
+Wire Wire Line
+	7900 5000 8125 5000
+Connection ~ 7900 5325
+Wire Wire Line
+	6450 5425 6450 5100
+Wire Wire Line
+	6450 5100 6600 5100
+Connection ~ 6450 5425
+Wire Wire Line
+	7975 5425 7975 5100
+Wire Wire Line
+	7975 5100 8125 5100
+Connection ~ 7975 5425
+Wire Wire Line
+	6525 5525 6525 5200
+Wire Wire Line
+	6525 5200 6600 5200
+Wire Wire Line
+	8050 5525 8050 5200
+Wire Wire Line
+	8050 5200 8125 5200
+$Comp
+L Connector:TestPoint TP1
+U 1 1 65811F73
+P 5850 1400
+F 0 "TP1" H 5908 1518 50  0000 L CNN
+F 1 "+5v" H 5908 1427 50  0000 L CNN
+F 2 "rc_light_system:Testpoint" H 6050 1400 50  0001 C CNN
+F 3 "~" H 6050 1400 50  0001 C CNN
+	1    5850 1400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5850 1400 5850 1500
+Connection ~ 5850 1500
+Wire Wire Line
+	4750 1900 5850 1900
+$Comp
+L Connector:TestPoint TP2
+U 1 1 65823CFF
+P 6200 1400
+F 0 "TP2" H 6258 1518 50  0000 L CNN
+F 1 "GND" H 6258 1427 50  0000 L CNN
+F 2 "rc_light_system:Testpoint" H 6400 1400 50  0001 C CNN
+F 3 "~" H 6400 1400 50  0001 C CNN
+	1    6200 1400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6200 1400 6200 1500
+$Comp
+L power:GND #PWR0104
+U 1 1 65829EA5
+P 6200 1500
+F 0 "#PWR0104" H 6200 1250 50  0001 C CNN
+F 1 "GND" H 6205 1327 50  0000 C CNN
+F 2 "" H 6200 1500 50  0001 C CNN
+F 3 "" H 6200 1500 50  0001 C CNN
+	1    6200 1500
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3800 1800 3800 1900
+Wire Wire Line
+	3800 3850 3800 5425
+Text Label 3825 1900 0    50   ~ 0
++6v
+$Comp
+L Connector:TestPoint TP3
+U 1 1 65830E3A
+P 3800 1800
+F 0 "TP3" H 3858 1918 50  0000 L CNN
+F 1 "LED" H 3858 1827 50  0000 L CNN
+F 2 "rc_light_system:Testpoint" H 4000 1800 50  0001 C CNN
+F 3 "~" H 4000 1800 50  0001 C CNN
+	1    3800 1800
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
