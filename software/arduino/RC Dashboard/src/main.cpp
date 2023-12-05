@@ -11,15 +11,25 @@ bool value_changed = false;
 
 double corrected;
 byte num_blanks, blank_start;
-byte gear = GEAR_NEUTRAL;
+byte current_gear = GEAR_NEUTRAL;
 
 long gauge_value;
 
 int map_input() {
-  if (last_pulse == 0) return 0;
-
+  /* Disable interrupts to increase accuracy */
   noInterrupts();
   last_pulse = pulseIn(PIN_THR, HIGH, 25000);
+  interrupts();
+
+  /* Second attempt at reading the value. This may be a mistake of my own doing
+   * or something else entirely, but for some reason the second pulse read is
+   * always more accurate.
+   */
+  noInterrupts();
+  last_pulse = pulseIn(PIN_THR, HIGH, 25000);
+  interrupts();
+
+  if (last_pulse == 0) return 0;
   #ifdef THROTTLE_FUDGE
   /* It appears that we can't really rely on the values from pulseIn as it does
    * some calculation based on how long the chip takes to run through a certain
@@ -37,7 +47,6 @@ int map_input() {
   corrected = corrected - THROTTLE_FUDGE;
   last_pulse = corrected;
   #endif
-  interrupts();
 
 	if (last_pulse <= THROTTLE_PULSE_MIN) return -100;
 	if (last_pulse >= THROTTLE_PULSE_MAX) return 100;
@@ -45,10 +54,6 @@ int map_input() {
 }
 
 void read_throttle() {
-  /* Disable interrupts to increase accuracy */
-  noInterrupts();
-  last_pulse = pulseIn(PIN_THR, HIGH, 25000);
-  interrupts();
   current_value = map_input();
   value_changed = (current_value != last_value);
   last_value = current_value;
@@ -78,8 +83,8 @@ byte get_gear() {
 
 void loop() {
   read_throttle();
-  if (true) {
-    gear = get_gear();
+  if (value_changed) {
+    current_gear = get_gear();
     gauge_value = current_value;
     if (gauge_value < 0) gauge_value = -gauge_value;
 
@@ -108,7 +113,7 @@ void loop() {
     /* Set image according to which gear we're in... it's an automatic so it's 
      * Drive, Reverse or Neutral. 
      */
-    switch (gear) {
+    switch (current_gear) {
       case GEAR_DRIVE:
         oled.bitmap(112, 1, 112 + 15, 3, image_gear_drive);
         break;
