@@ -15,3 +15,18 @@
  */
 #define LOW_THRESHOLD 10
 #define HIGH_THRESHOLD 80
+
+/* Defines the style used for the gauge, mainly it just determines the image
+ * used for the full throttle bar.
+ * These can be described as following:
+ *  1 - Digital vertical bars
+ *  2 - Same as above except filled in
+ *  3 - High contrast that fills all the space below the bar.
+ *
+ * LIMIT_REVERSE is a value (in pixels) for how much of the gauge will be
+ * used in reverse, mainly because we would normally want to set the ESC
+ * to drive the motor to a lesser degree while in reverse. Comment out the
+ * setting in order to disable this feature.
+ */
+#define GAUGE_STYLE 1
+#define LIMIT_REVERSE 63

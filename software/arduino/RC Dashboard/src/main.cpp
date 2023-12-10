@@ -81,6 +81,66 @@ byte get_gear() {
   return GEAR_NEUTRAL;
 }
 
+void show_gauge() {
+  /* The gauge is always shown in full, but in order to have an inactive
+    * portion of it - we'll just blank out those pixels from the screen
+    * by sending it black pixels. If a limit has been set, we can set an
+    * upper limit for what reverse will be showing.
+    */
+  blank_start = map(gauge_value, 0, 100, 0, 96 - 1);
+  #ifdef LIMIT_REVERSE
+    if (current_gear == GEAR_REVERSE) {
+      blank_start = map(gauge_value, 0, 100, 0, LIMIT_REVERSE - 1);
+    }
+  #endif
+  num_blanks = 96 - blank_start;
+
+  oled.bitmap(
+    8,
+    1, 
+    8 + 96,
+    3,
+    #if GAUGE_STYLE == 2
+      image_gauge2
+    #elif GAUGE_STYLE == 3
+      image_gauge3
+    #else
+      image_gauge1
+    #endif
+  );
+
+  oled.setCursor(8 + blank_start, 1);
+  oled.startData();
+  for (int i = 0; i < num_blanks; i++) {
+    oled.sendData(0x00);
+  }
+  oled.endData();
+
+  oled.setCursor(8 + blank_start, 2);
+  oled.startData();
+  for (int i = 0; i < num_blanks; i++) {
+    oled.sendData(0x00);
+  }
+  oled.endData();
+}
+
+void show_gear() {
+  /* Set image according to which gear we're in... it's an automatic so it's 
+    * Drive, Reverse or Neutral. 
+    */
+  switch (current_gear) {
+    case GEAR_DRIVE:
+      oled.bitmap(112, 1, 112 + 15, 3, image_gear_drive);
+      break;
+    case GEAR_REVERSE:
+      oled.bitmap(112, 1, 112 + 15, 3, image_gear_reverse);
+      break;    
+    default:
+      oled.bitmap(112, 1, 112 + 15, 3, image_gear_neutral);
+      break;
+  }
+}
+
 void loop() {
   read_throttle();
   if (value_changed) {
@@ -88,42 +148,8 @@ void loop() {
     gauge_value = current_value;
     if (gauge_value < 0) gauge_value = -gauge_value;
 
-    /* The gauge is always shown in full, but in order to have an inactive
-     * portion of it - we'll just blank out those pixels from the screen
-     * by sending it black pixels.
-     */
-    blank_start = map(gauge_value, 0, 100, 0, 96);
-    num_blanks = 96 - blank_start;
-
-    oled.bitmap(8, 1, 8 + 95, 3, image_gauge1);
-    oled.setCursor(9 + blank_start, 1);
-    oled.startData();
-    for (int i = 0; i < num_blanks; i++) {
-      oled.sendData(0x00);
-    }
-    oled.endData();
-
-    oled.setCursor(9 + blank_start, 2);
-    oled.startData();
-    for (int i = 0; i < num_blanks; i++) {
-      oled.sendData(0x00);
-    }
-    oled.endData();
-
-    /* Set image according to which gear we're in... it's an automatic so it's 
-     * Drive, Reverse or Neutral. 
-     */
-    switch (current_gear) {
-      case GEAR_DRIVE:
-        oled.bitmap(112, 1, 112 + 15, 3, image_gear_drive);
-        break;
-      case GEAR_REVERSE:
-        oled.bitmap(112, 1, 112 + 15, 3, image_gear_reverse);
-        break;    
-      default:
-        oled.bitmap(112, 1, 112 + 15, 3, image_gear_neutral);
-        break;
-    }
+    show_gauge();
+    show_gear();
 
     // oled.clear();
     // oled.setCursor(114, 1);
