@@ -29,4 +29,5 @@
  * setting in order to disable this feature.
  */
 #define GAUGE_STYLE 1
+#define GEARS_ALT
 #define LIMIT_REVERSE 63

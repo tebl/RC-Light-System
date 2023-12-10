@@ -53,10 +53,18 @@ int map_input() {
   return map(last_pulse, THROTTLE_PULSE_MIN, THROTTLE_PULSE_MAX, -100, 100);
 }
 
+/* This will read the throttle value, but take note that current_value will
+ * read as 0 (stick in neutral position) even while a signal is not present
+ * such as when it isn't connected to the receiver.
+ */
 void read_throttle() {
   current_value = map_input();
-  value_changed = (current_value != last_value);
-  last_value = current_value;
+  if (last_pulse != 0) {
+    value_changed = (current_value != last_value);
+    last_value = current_value;
+  } else {
+    value_changed = false;
+  }
 }
 
 void setup() {
@@ -75,12 +83,20 @@ void setup() {
   oled.on();
 }
 
+/* While the values we end up with can be considered to be between -100
+ * and 100, zero being neutral, we need something slightly less fuzzy to
+ * work with. Generally we use the low threshold in both direction as a
+ * configurable deadzone, placing the gears to each side of it.
+ */
 byte get_gear() {
   if (current_value > LOW_THRESHOLD) return GEAR_DRIVE;
   if (current_value < -(LOW_THRESHOLD)) return GEAR_REVERSE;
   return GEAR_NEUTRAL;
 }
 
+/* Renders the throttle gauge on the OLED. The function assumes that
+ * variables for gauge value as well as gear has been previously updated.
+ */
 void show_gauge() {
   /* The gauge is always shown in full, but in order to have an inactive
     * portion of it - we'll just blank out those pixels from the screen
@@ -130,13 +146,44 @@ void show_gear() {
     */
   switch (current_gear) {
     case GEAR_DRIVE:
-      oled.bitmap(112, 1, 112 + 15, 3, image_gear_drive);
+      oled.bitmap(
+        112, 
+        1, 
+        112 + 15, 
+        3, 
+        #ifdef GEARS_ALT
+          image_gear_alt_drive
+        #else
+          image_gear_drive
+        #endif
+      );
       break;
     case GEAR_REVERSE:
-      oled.bitmap(112, 1, 112 + 15, 3, image_gear_reverse);
-      break;    
+      oled.bitmap(
+        112, 
+        1, 
+        112 + 15, 
+        3, 
+        #ifdef GEARS_ALT
+          image_gear_alt_reverse
+        #else
+          image_gear_reverse
+        #endif
+      );
+      break;
     default:
-      oled.bitmap(112, 1, 112 + 15, 3, image_gear_neutral);
+      oled.bitmap(
+        112, 
+        1, 
+        112 + 15, 
+        3, 
+        #ifdef GEARS_ALT
+          image_gear_alt_neutral
+        #else
+          image_gear_neutral
+        #endif
+      );
+      break;
       break;
   }
 }
@@ -151,12 +198,6 @@ void loop() {
     show_gauge();
     show_gear();
 
-    // oled.clear();
-    // oled.setCursor(114, 1);
-    // oled.setFont(FONT6X8);
-    // oled.print(last_pulse);
-    // oled.setCursor(64, 1);
-    // oled.print(current_value);
     oled.switchFrame();
   }
 }
