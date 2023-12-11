@@ -15,3 +15,8 @@
  */
 #define LOW_THRESHOLD 10
 #define HIGH_THRESHOLD 80
+
+// #define NO_FLICKER
+// #define LESS_FLICKER
+#define BACKFIRE_THRESHOLD 32
+#define BACKFIRE_TIMER 500
