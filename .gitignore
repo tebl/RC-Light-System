@@ -14,8 +14,10 @@
 # Autorouter files (exported from Pcbnew)
 .dsn
 
+RC Dashboard Digispark/export/
 RC Light System/export/
 RC Light System Output/export/
+RC Light System Output Mini/export/
 RC Exhaust System/export/
 RC Exhaust System RGB/export/
 resources/
