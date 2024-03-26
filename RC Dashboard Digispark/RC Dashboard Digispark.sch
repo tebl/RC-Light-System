@@ -207,7 +207,7 @@ $EndComp
 Wire Wire Line
 	5475 2000 5375 2000
 Text Notes 5850 1650 0    50   ~ 0
-JP2 is normally shorted so that power\nis taken from the receiver, only reason\nto not link it is when doing active code\ndevelopment and a clean 5v is supplied\nby the computer.\n\nD2 is most likely not needed, but probably\nbest to have it and not need it (in case the\nOLED can't handle a little bit over 5v).
+JP2 is normally shorted so that power\nis taken from the receiver, only reason\nto not link it is when doing active code\ndevelopment and a clean 5v is supplied\nby the computer (in any case the diode\nshould protect it from harm).\n\nD2 is most likely not needed, but probably\nbest to have it and not need it (in case the\nOLED can't handle a little bit over 5v).
 Text Label 3450 3200 0    50   ~ 0
 6v
 Wire Wire Line
@@ -272,7 +272,7 @@ Wire Wire Line
 Wire Wire Line
 	6600 2000 7500 2000
 Text Notes 9275 4775 0    50   ~ 0
-WARNING:\nThis assumes that the OLED was built to\nwithstand powering from 5v, usually this\nmeans unpopulated areas on the back of it.\n\nAlso, ensure that you swap the two first pins\nif your OLED has a different pin order that the\none used here (GND/VCC/SCL/SDA).
+WARNING:\nThis assumes that the OLED was built to\nwithstand powering from 5v, usually this\nmeans no unpopulated areas on the back of it.\n\nAlso, ensure that you swap the two first pins\nif your OLED has a different pin order that the\none used here (GND/VCC/SCL/SDA).
 NoConn ~ 7500 3225
 $Comp
 L power:PWR_FLAG #FLG0102
