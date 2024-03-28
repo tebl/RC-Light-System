@@ -7,13 +7,13 @@ Yeah! Turns out that doing exactly that, requires understanding a lot more than 
 
 As I had a lot of fun doing it, I wanted to build a multitude of slightly different things around the same core theme - RCs, lighting and cool effects. For that reason I found it easier to organize them into their own sub-projects, so follow the links to the ones you are specifically interested in.
 
-- [1> Modules](#1-modules)
+- [1> Projects](#1-projects)
   - [1.1> RC Light System](#11-rc-light-system)
   - [1.2> RC Exhaust](#12-rc-exhaust)
   - [1.3> RC Dashboard](#13-rc-dashboard)
 
-# 1> Modules
-For the technical details as well as information regarding the modules included by this specific github project, consult the table below and follow along to the things that interest you. As each module will realistically end up being done in several different ways, they will each come with their own set of documentation as well as BOM-listings. Organized separately, you are recommended to check out the [schematics](https://github.com/tebl/RC-Light-System/tree/main/documentation/schematic) for detailed information about how the electronic side of these things work.
+# 1> Projects
+For the technical details as well as information regarding the modules included by this specific github repository, consult the table below and follow along for the things that may interest you.  As each project will realistically end up being done in several different ways, they will each come with their own set of documentation as well as BOM-listings. Organized separately, you are recommended to check out the [schematics](https://github.com/tebl/RC-Light-System/tree/main/documentation/schematic) for detailed information about how the electronic side of these things work.
 
 | Module                            | Description                                      |
 | --------------------------------- | ------------------------------------------------ | 
@@ -22,9 +22,15 @@ For the technical details as well as information regarding the modules included 
 | [RC Dashboard](#13-rc-dashboard) | Connected to the receiver, it shows a digital throttle gauge on a small OLED-screen.
 
 ## 1.1> RC Light System
-This is the project I had originally intended to design, almost a decade ago. A lighting system with some kind of intelligence in it, so that it wouldn't turn on the blinkers when turning at any sensible amount of speed. My second requirement was that it should be detachable by cable, mostly so that the electronics mounted on the chassis could be separated from those that are stuck to the body.
+This is the project I had originally intended to design, almost a decade earlier. A lighting system with some kind of recognizable intelligence to it. More specifically, something that wouldn't turn on the blinkers when turning the wheel. I could always just cut the wire, but I wanted it to work so that it felt more *scale* - turning on the blinker when cornering around a racetrack at subsonic speeds wasn't it. My second requirement was that it should be detachable by cable, mostly so that the electronics mounted on the chassis could be separated from those that are stuck to the body.
 
-I can't physically work with small components, so as for any practical usage you will need a lot of space to install this - possibly a truck of some kind. Other than that, consider it *educational* material.
+I can't physically work with small components, so as for any practical usage you will need a lot of space to install this - possibly a truck of some kind. Other than that, consider it *educational* material for anyone that wants to connect an Arduino to an RC-receiver.
+
+| Module                            | Description                                      |
+| --------------------------------- | ------------------------------------------------ | 
+| [RC Light System](https://github.com/tebl/RC-Light-System/tree/main/RC%20Light%20System)  | Main module for mounting on chassis, uses Arduino Pro Micro.
+| [RC Light System Output](https://github.com/tebl/RC-Light-System/tree/main/RC%20Light%20System%20Output)  | Output-module for mounting on a body. Four sets of two LEDs can be combined to have two levels of brightness.
+| [RC Light System Output Mini](https://github.com/tebl/RC-Light-System/tree/main/RC%20Light%20System%20Output%20Mini)  | Output-module for mounting on a body. Slightly smaller than the other one, with almost none of the interesting features apart from turning LEDs on and off.
 
 ## 1.2> RC Exhaust
 Working with the [RC Light System](#11-rc-light-system), I came across small metal exhaust pipes for 1:10 RCs on AliExpress. Arriving in the mail a couple of months later I knew I had to install them in something, given that they were designed to fit an LED inside it - I wanted something more exciting than a basic effect. I wanted it to glow red on heavy throttle, backfire when easing up on the throttle and so on!
@@ -34,10 +40,11 @@ Working with the [RC Light System](#11-rc-light-system), I came across small met
 | [RC Exhaust Digispark](https://github.com/tebl/RC-Light-System/tree/main/RC%20Exhaust%20Digispark)  | Exhaust-module based around Digispark, with capability for RGB colour LED.
 
 ## 1.3> RC Dashboard
-Tightly related to the [RC Exhaust](#12-rc-exhaust)-module in terms of implementation, mostly because I initially couldn't get it to work - so in the end I had to put a screen on one, all in order to figure out all the ways it had initially failed to work. That doesn't sound like a fun thing to build, but when doing it I had an idea - why not mount the screen inside the interior of an RC car? Cars generally have those, we call them *"dashboards"*.
+Tightly related to the [RC Exhaust](#12-rc-exhaust) in terms of implementation, mostly because I initially couldn't get it to work - so in the end I had to put a screen on one, all in order to figure out all the ways it had initially failed to work. That doesn't sound like a fun thing to build, but when doing it I had an idea - why not mount the screen inside the interior of an RC car? Cars generally have those, we call them *"dashboards"*.
 
 [![YouTube image](https://raw.githubusercontent.com/tebl/RC-Light-System/main/gallery/youtube_dashboard_preview.png)](https://youtube.com/shorts/HmBhJOPVMgE)
-An electric RC doesn't exactly have a lot of telemetry that's available to plug into, but at least I can put a throttle gauge on it. Nowadays you'd probably want an analog one, but I designed this one to mimic the future that was on display in a limited selection of 80s and 90s.
+An electric RC doesn't exactly have a lot of telemetry that's available to plug into, but at least I can put a throttle gauge on it. Nowadays you'd probably want an analog one, but I designed this one to mimic the digital future that was on display in a limited selection of 80s and 90s cars - check out [The definitive collection of cool 1980s digital dashboards in Euro cars
+](https://drivemag.com/red-calipers/the-definitive-collection-of-cool-1980s-digital-dashboards-in-euro-cars/) to see some examples of what I'm talking about here.
 
 | Module                            | Description                                      |
 | --------------------------------- | ------------------------------------------------ | 
