@@ -43,6 +43,7 @@ Working with the [RC Light System](#11-rc-light-system), I came across small met
 Tightly related to the [RC Exhaust](#12-rc-exhaust) in terms of implementation, mostly because I initially couldn't get it to work - so in the end I had to put a screen on one, all in order to figure out all the ways it had initially failed to work. That doesn't sound like a fun thing to build, but when doing it I had an idea - why not mount the screen inside the interior of an RC car? Cars generally have those, we call them *"dashboards"*.
 
 [![YouTube image](https://raw.githubusercontent.com/tebl/RC-Light-System/main/gallery/youtube_dashboard_preview.png)](https://youtube.com/shorts/HmBhJOPVMgE)
+
 An electric RC doesn't exactly have a lot of telemetry that's available to plug into, but at least I can put a throttle gauge on it. Nowadays you'd probably want an analog one, but I designed this one to mimic the digital future that was on display in a limited selection of 80s and 90s cars - check out [The definitive collection of cool 1980s digital dashboards in Euro cars
 ](https://drivemag.com/red-calipers/the-definitive-collection-of-cool-1980s-digital-dashboards-in-euro-cars/) to see some examples of what I'm talking about here.
 
