@@ -78,32 +78,10 @@ L Device:R_Small R1
 U 1 1 64ECF255
 P 7900 2725
 F 0 "R1" H 7959 2771 50  0000 L CNN
-F 1 "220" H 7959 2680 50  0000 L CNN
+F 1 "200" H 7959 2680 50  0000 L CNN
 F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 7900 2725 50  0001 C CNN
 F 3 "~" H 7900 2725 50  0001 C CNN
 	1    7900 2725
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R2
-U 1 1 64ED38BC
-P 8350 2725
-F 0 "R2" H 8409 2771 50  0000 L CNN
-F 1 "200" H 8409 2680 50  0000 L CNN
-F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 8350 2725 50  0001 C CNN
-F 3 "~" H 8350 2725 50  0001 C CNN
-	1    8350 2725
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R3
-U 1 1 650115B7
-P 8800 2725
-F 0 "R3" H 8859 2771 50  0000 L CNN
-F 1 "150" H 8859 2680 50  0000 L CNN
-F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 8800 2725 50  0001 C CNN
-F 3 "~" H 8800 2725 50  0001 C CNN
-	1    8800 2725
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -300,4 +278,26 @@ Wire Wire Line
 	5675 2000 6600 2000
 Text Notes 9200 3350 0    50   ~ 0
 WARNING: The Attiny85 has limited capability\nto sink current, resistors therefore need to be \nlimited to ensure a maximum combined current\nof around 60mA. Beyond that it will most likely\nburn out.\n\nUse an online calculator if you are unsure what\nto use. Input voltage 5v, around 15mA per LED\nand select forward voltage according to the\ncolour (Red, Green, Blue).
+$Comp
+L Device:R_Small R3
+U 1 1 650115B7
+P 8800 2725
+F 0 "R3" H 8859 2771 50  0000 L CNN
+F 1 "270" H 8859 2680 50  0000 L CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 8800 2725 50  0001 C CNN
+F 3 "~" H 8800 2725 50  0001 C CNN
+	1    8800 2725
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R2
+U 1 1 64ED38BC
+P 8350 2725
+F 0 "R2" H 8409 2771 50  0000 L CNN
+F 1 "270" H 8409 2680 50  0000 L CNN
+F 2 "resistor:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 8350 2725 50  0001 C CNN
+F 3 "~" H 8350 2725 50  0001 C CNN
+	1    8350 2725
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

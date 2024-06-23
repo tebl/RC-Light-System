@@ -13,7 +13,7 @@ As I had a lot of fun doing it, I wanted to build a multitude of slightly differ
   - [1.3> RC Dashboard](#13-rc-dashboard)
 
 # 1> Projects
-For the technical details as well as information regarding the modules included by this specific github repository, consult the table below and follow along for the things that may interest you.  As each project will realistically end up being done in several different ways, they will each come with their own set of documentation as well as BOM-listings. Organized separately, you are recommended to check out the [schematics](https://github.com/tebl/RC-Light-System/tree/main/documentation/schematic) for detailed information about how the electronic side of these things work.
+For the technical details as well as information regarding the projects included in this specific github repository, consult the table below and follow along for the things that may interest you.  As each project will realistically end up being done in several different ways, they will each come with their own set of documentation as well as BOM-listings - these are organized by putting all that into the documentation for each module below it. Organized separately, you are also recommended to check out the [schematics](https://github.com/tebl/RC-Light-System/tree/main/documentation/schematic) for detailed information about how the electrical side of things work.
 
 | Module                            | Description                                      |
 | --------------------------------- | ------------------------------------------------ | 
