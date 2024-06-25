@@ -16,6 +16,11 @@
 #define LOW_THRESHOLD 10
 #define HIGH_THRESHOLD 80
 
+/* If you don't like the flickering, either adjust the timings or uncomment
+ * one of the following lines. NO_FLICKER disables it entirely while
+ * LESS_FLICKER reduces the effect, mainly by disabling green and blue so that
+ * only the red appears.
+ */
 // #define NO_FLICKER
 // #define LESS_FLICKER
 #define BACKFIRE_THRESHOLD 32
