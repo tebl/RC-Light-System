@@ -234,19 +234,6 @@ void draw_gauge() {
 
 void setup() {
   u8g2.begin();
-  u8g2.setBitmapMode(true /* solid */);
-
-  u8g2.setFont(u8g2_font_6x10_tf);
-  u8g2.setFontRefHeightExtendedText();
-  u8g2.setDrawColor(1);
-  u8g2.setFontPosTop();
-  u8g2.setFontDirection(0);
-}
-
-void draw() {
-  draw_bezel();
-  draw_gear();
-  draw_gauge();
 }
 
 long last_boot = 0;
