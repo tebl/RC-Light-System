@@ -1,8 +1,12 @@
 #include <Arduino.h>
 #include <U8g2lib.h>
+#include <ServoInput.h>
 #include "constants.h"
 #include "settings.h"
 #include "images.h"
+
+const int ThrottleSignalPin = PIN_THR;
+ServoInputPin<ThrottleSignalPin> throttle(THROTTLE_PULSE_MIN, THROTTLE_PULSE_MAX);
 
 U8G2_SSD1306_128X32_UNIVISION_1_SW_I2C u8g2(U8G2_R0, /* clock=*/ PIN_SCL, /* data=*/ PIN_SDA, /* reset=*/ U8X8_PIN_NONE);
 
@@ -23,19 +27,12 @@ int map_input() {
   // last_pulse = pulseIn(PIN_THR, HIGH, 25000);
   // interrupts();
 
-  /* Second attempt at reading the value. This may be a mistake of my own doing
-   * or something else entirely, but for some reason the second pulse read is
-   * always more accurate.
-   */
-  noInterrupts();
-  last_pulse = pulseIn(PIN_THR, HIGH, 25000);
-  interrupts();
+  // if (last_pulse == 0) return 0;
 
-  if (last_pulse == 0) return 0;
-
-	if (last_pulse <= THROTTLE_PULSE_MIN) return -100;
-	if (last_pulse >= THROTTLE_PULSE_MAX) return 100;
-  return map(last_pulse, THROTTLE_PULSE_MIN, THROTTLE_PULSE_MAX, -100, 100);
+	// if (last_pulse <= THROTTLE_PULSE_MIN) return -100;
+	// if (last_pulse >= THROTTLE_PULSE_MAX) return 100;
+  // return map(last_pulse, THROTTLE_PULSE_MIN, THROTTLE_PULSE_MAX, -100, 100);
+  return throttle.map(-100, 100);
 }
 
 /* This will read the throttle value, but take note that current_value will
@@ -44,12 +41,13 @@ int map_input() {
  */
 void read_throttle() {
   current_value = map_input();
-  if (last_pulse != 0) {
-    value_changed = (current_value != last_value);
-    last_value = current_value;
-  } else {
-    value_changed = false;
-  }
+  value_changed = true;
+  // if (last_pulse != 0) {
+  //   value_changed = (current_value != last_value);
+  //   last_value = current_value;
+  // } else {
+  //   value_changed = false;
+  // }
 }
 
 /* While the values we end up with can be considered to be between -100
@@ -131,7 +129,6 @@ void draw_manual() {
       );
       return;
 
-      break;
     case GEAR_REVERSE:
       u8g2.drawXBMP(
         111, 
@@ -140,7 +137,8 @@ void draw_manual() {
         16, 
         image_gear_manual_r
       );
-      break;
+      return;
+
     default:
       u8g2.drawXBMP(
         111, 
@@ -149,7 +147,7 @@ void draw_manual() {
         16, 
         image_gear_manual_1
       );
-      break;
+      return;
   }
 }
 
@@ -171,6 +169,7 @@ void draw_automatic() {
         #endif
       );
       break;
+
     case GEAR_REVERSE:
       u8g2.drawXBMP(
         112, 
@@ -180,6 +179,9 @@ void draw_automatic() {
         image_gear_manual_r
       );
       break;
+
+    case GEAR_NEUTRAL:
+    case GEAR_PARKED:
     default:
       u8g2.drawXBMP(
         112, 
@@ -234,6 +236,10 @@ void draw_gauge() {
 
 void setup() {
   u8g2.begin();
+  throttle.attach();
+  while (!ServoInput.available()) {
+		delay(50);
+	}
 }
 
 long last_boot = 0;
