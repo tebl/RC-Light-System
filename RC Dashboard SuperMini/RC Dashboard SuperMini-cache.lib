@@ -1,0 +1,229 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# Device_Jumper_NC_Small
+#
+DEF Device_Jumper_NC_Small JP 0 30 N N 1 F N
+F0 "JP" 0 80 50 H V C CNN
+F1 "Device_Jumper_NC_Small" 10 -60 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ SolderJumper*Bridged*
+ Jumper*
+ TestPoint*2Pads*
+ TestPoint*Bridge*
+$ENDFPLIST
+DRAW
+A 0 -10 57 450 1350 0 1 0 N 40 30 -40 30
+C -40 0 20 0 1 0 N
+C 40 0 20 0 1 0 N
+X 1 1 -100 0 40 R 50 50 0 1 P
+X 2 2 100 0 40 L 50 50 0 1 P
+ENDDRAW
+ENDDEF
+#
+# Device_Jumper_NO_Small
+#
+DEF Device_Jumper_NO_Small JP 0 30 N N 1 F N
+F0 "JP" 0 80 50 H V C CNN
+F1 "Device_Jumper_NO_Small" 10 -60 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ SolderJumper*Open*
+ Jumper*
+ TestPoint*2Pads*
+ TestPoint*Bridge*
+$ENDFPLIST
+DRAW
+C -40 0 20 0 1 0 N
+C 40 0 20 0 1 0 N
+X 1 1 -100 0 40 R 50 50 0 1 P
+X 2 2 100 0 40 L 50 50 0 1 P
+ENDDRAW
+ENDDEF
+#
+# Device_R_Small
+#
+DEF Device_R_Small R 0 10 N N 1 F N
+F0 "R" 30 20 50 H V L CNN
+F1 "Device_R_Small" 30 -40 50 H V L CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+S -30 70 30 -70 0 1 8 N
+X ~ 1 0 100 30 D 50 50 1 1 P
+X ~ 2 0 -100 30 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Diode_1N4001
+#
+DEF Diode_1N4001 D 0 40 N N 1 F N
+F0 "D" 0 100 50 H V C CNN
+F1 "Diode_1N4001" 0 -100 50 H V C CNN
+F2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" 0 -175 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+ALIAS 1N4002 1N4003 1N4004 1N4005 1N4006 1N4007 BA157 BA158 BA159
+$FPLIST
+ D*DO?41*
+$ENDFPLIST
+DRAW
+P 2 0 1 10 -50 50 -50 -50 N
+P 2 0 1 0 50 0 -50 0 N
+P 4 0 1 10 50 50 50 -50 -50 0 50 50 N
+X K 1 -150 0 100 R 50 50 1 1 P
+X A 2 150 0 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# I2C_OLED_0.91_I2C_OLED
+#
+DEF I2C_OLED_0.91_I2C_OLED IC 0 40 Y Y 1 F N
+F0 "IC" 50 -175 60 H V C CNN
+F1 "I2C_OLED_0.91_I2C_OLED" 75 -100 43 H V C CNN
+F2 "" 0 625 60 H I C CNN
+F3 "" 0 625 60 H I C CNN
+DRAW
+S -525 75 550 -325 0 1 0 f
+S 425 0 -300 -250 0 1 0 N
+X GND 1 -725 -275 200 R 50 50 1 1 W
+X VCC 2 -725 -175 200 R 50 50 1 1 W
+X SCL 3 -725 -75 200 R 50 50 1 1 B
+X SDA 4 -725 25 200 R 50 50 1 1 B
+ENDDRAW
+ENDDEF
+#
+# digispark_Digispark
+#
+DEF digispark_Digispark A 0 20 Y N 1 F N
+F0 "A" -500 550 50 H V L BNN
+F1 "digispark_Digispark" 100 -550 50 H V L TNN
+F2 "" -650 -600 50 H I C CIN
+F3 "" 0 0 50 H I C CNN
+ALIAS ATtiny25-20PU ATtiny45V-10PU ATtiny45-20PU ATtiny85V-10PU ATtiny85-20PU
+$FPLIST
+ DIP*W7.62mm*
+$ENDFPLIST
+DRAW
+C -300 -425 25 1 1 0 N
+C -200 -425 25 1 1 0 N
+C -100 -425 25 1 1 0 N
+T 900 -300 425 39 0 0 0 5v Normal 0 C C
+T 0 425 -250 50 0 0 0 P0 Normal 0 C C
+T 900 -200 -325 39 0 1 1 GND Normal 0 C C
+T 0 275 -150 39 0 1 1 LED Normal 0 C C
+T 0 100 -150 39 0 1 1 MISO Normal 0 C C
+T 0 100 -250 39 0 1 1 MOSI Normal 0 C C
+T 0 425 -150 50 0 1 1 P1 Normal 0 C C
+T 0 425 -50 50 0 1 1 P2 Normal 0 C C
+T 0 425 50 50 0 1 1 P3 Normal 0 C C
+T 0 425 150 50 0 1 1 P4 Normal 0 C C
+T 0 425 250 50 0 1 1 P5 Normal 0 C C
+T 0 275 250 39 0 1 1 RES Normal 0 C C
+T 0 275 -50 39 0 1 1 SCL Normal 0 C C
+T 0 100 -50 39 0 1 1 SCLK Normal 0 C C
+T 0 275 -250 39 0 1 1 SDA Normal 0 C C
+T 0 275 50 39 0 1 1 USB Normal 0 C C
+T 0 275 150 39 0 1 1 USB Normal 0 C C
+T 900 -100 425 39 0 1 1 VIN Normal 0 C C
+S -950 175 -575 125 0 1 0 F
+S -875 75 -575 25 0 1 0 F
+S -575 -25 -875 -75 0 1 0 F
+S -500 -500 500 500 0 1 10 f
+S -500 225 -1000 -225 0 1 0 f
+S -950 -125 -575 -175 1 1 0 F
+P 2 1 1 0 -300 325 -300 -400 N
+P 2 1 1 0 -200 -450 -200 -500 N
+P 2 1 1 0 -100 325 -100 -400 N
+X P5 1 600 250 100 L 50 50 1 1 B
+X P3 2 600 50 100 L 50 50 1 1 B
+X P4 3 600 150 100 L 50 50 1 1 B
+X GND 4 -200 -600 100 U 50 50 1 1 W
+X P0 5 600 -250 100 L 50 50 1 1 B
+X P1 6 600 -150 100 L 50 50 1 1 B
+X P2 7 600 -50 100 L 50 50 1 1 B
+X 5v 8 -300 600 100 D 50 50 1 1 W
+X VIN 9 -100 600 100 D 50 50 1 1 W
+ENDDRAW
+ENDDEF
+#
+# power_GND
+#
+DEF power_GND #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -250 50 H I C CNN
+F1 "power_GND" 0 -150 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
+X GND 1 0 0 0 D 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# power_PWR_FLAG
+#
+DEF power_PWR_FLAG #FLG 0 0 N N 1 F P
+F0 "#FLG" 0 75 50 H I C CNN
+F1 "power_PWR_FLAG" 0 150 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 6 0 1 0 0 0 0 50 -40 75 0 100 40 75 0 50 N
+X pwr 1 0 0 0 U 50 50 0 0 w
+ENDDRAW
+ENDDEF
+#
+# rc_light_system_Conn_Channel_Output
+#
+DEF rc_light_system_Conn_Channel_Output J 0 40 Y N 1 F N
+F0 "J" 0 200 50 H V C CNN
+F1 "rc_light_system_Conn_Channel_Output" 0 -200 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Connector*:*_1x??_*
+$ENDFPLIST
+DRAW
+T 0 25 0 50 0 1 1 BEC Normal 0 L C
+T 0 25 -100 50 0 1 1 DATA Normal 0 L C
+T 0 25 100 50 0 1 1 GND Normal 0 L C
+S -50 150 275 -150 0 1 10 f
+S -50 -95 0 -105 1 1 6 N
+S -50 5 0 -5 1 1 6 N
+S -50 105 0 95 1 1 6 N
+X GND 1 -200 100 150 R 50 50 1 1 W
+X BEC 2 -200 0 150 R 50 50 1 1 P
+X VCC 3 -200 -100 150 R 50 50 1 1 I
+ENDDRAW
+ENDDEF
+#
+# rc_light_system_Conn_Input
+#
+DEF rc_light_system_Conn_Input J 0 40 Y N 1 F N
+F0 "J" 0 200 50 H V C CNN
+F1 "rc_light_system_Conn_Input" 0 -200 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Connector*:*_1x??_*
+$ENDFPLIST
+DRAW
+T 0 25 0 50 0 1 1 BEC Normal 0 L C
+T 0 25 -100 50 0 1 1 DATA Normal 0 L C
+T 0 25 100 50 0 1 1 GND Normal 0 L C
+S -50 150 275 -150 0 1 10 f
+S -50 -95 0 -105 1 1 6 N
+S -50 5 0 -5 1 1 6 N
+S -50 105 0 95 1 1 6 N
+X GND 1 -200 100 150 R 50 50 1 1 w
+X BEC 2 -200 0 150 R 50 50 1 1 w
+X VCC 3 -200 -100 150 R 50 50 1 1 O
+ENDDRAW
+ENDDEF
+#
+#End Library
