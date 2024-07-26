@@ -237,9 +237,9 @@ void draw_gauge() {
 void setup() {
   u8g2.begin();
   throttle.attach();
-  while (!ServoInput.available()) {
-		delay(50);
-	}
+  // while (!ServoInput.available()) {
+	// 	delay(50);
+	// }
 }
 
 long last_boot = 0;
@@ -247,7 +247,7 @@ bool boot_done = false;
 void loop() {
   u8g2.firstPage();
   do {
-    if (!boot_done) {
+    if (!boot_done || !ServoInput.anyAvailable()) {
       if (last_boot == 0) {
         last_boot = millis();
       }
@@ -270,7 +270,6 @@ void loop() {
       draw_bezel();
       draw_gear();
       draw_gauge();
-
     }
   } while ( u8g2.nextPage() );
 }
