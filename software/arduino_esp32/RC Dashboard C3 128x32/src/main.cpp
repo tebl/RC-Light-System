@@ -71,7 +71,7 @@ void draw_bezel() {
   );
 }
 
-void draw_boot() {
+void draw_logo() {
   u8g2.drawXBMP(
     8, 
     8, 
@@ -235,41 +235,77 @@ void draw_gauge() {
 }
 
 void setup() {
-  u8g2.begin();
+  pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, HIGH);
+
   throttle.attach();
   // while (!ServoInput.available()) {
 	// 	delay(50);
 	// }
 }
 
-long last_boot = 0;
+long last_boot = millis();
 bool boot_done = false;
+bool led_value = false;
+bool display_started = false;
+
+void show_boot() {
+  draw_bezel();
+  draw_gear();
+  draw_logo();
+
+  if ((millis() - last_boot) > BOOT_DURATION) {
+    boot_done = true;
+  }
+}
+
+void show_unconnected() {
+  digitalWrite(LED_PIN, led_value ? HIGH : LOW);
+  led_value = !led_value;
+
+  draw_bezel();
+  draw_gear();
+  draw_logo();        
+}
+
+void show_gauges() {
+  read_throttle();
+  if (value_changed) {
+    current_gear = get_gear();
+    gauge_value = current_value;
+    if (gauge_value < 0) gauge_value = -gauge_value;
+  }
+
+  draw_bezel();
+  draw_gear();
+  draw_gauge();
+}
+
 void loop() {
+  /* This seems stupid, but for some reason u8g2 fails to initialize properly
+   * without it. Maybe that's something else throwing wrenches into its
+   * routines, but until there's an explanation I guess I need it.
+   */
+  if (!display_started) {
+    delay(2000);
+    u8g2.begin();
+    // delay(2000);
+
+    display_started = true;
+  }
+
   u8g2.firstPage();
   do {
-    if (!boot_done || !ServoInput.anyAvailable()) {
-      if (last_boot == 0) {
-        last_boot = millis();
-      }
-
-      draw_bezel();
-      draw_gear();
-      draw_boot();
-
-      if ((millis() - last_boot) > BOOT_DURATION) {
-        boot_done = true;
-      }
-    } else {
-      read_throttle();
-      if (value_changed) {
-        current_gear = get_gear();
-        gauge_value = current_value;
-        if (gauge_value < 0) gauge_value = -gauge_value;
-      }
-
-      draw_bezel();
-      draw_gear();
-      draw_gauge();
+    if (!boot_done) {
+      show_boot();
+      continue;
     }
+
+    if (!ServoInput.anyAvailable()) {
+      show_unconnected();
+      continue;
+    }
+
+    show_gauges();
   } while ( u8g2.nextPage() );
 }
