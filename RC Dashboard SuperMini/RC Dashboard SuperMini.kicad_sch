@@ -2641,6 +2641,17 @@
 		)
 		(uuid "548182c9-6bb4-4725-ae2a-3a583058d0a5")
 	)
+	(label "SCL"
+		(at 223.52 120.65 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "689ab5fd-643f-4ad0-85c0-a1727cf82b8c")
+	)
 	(label "6v"
 		(at 60.96 86.36 0)
 		(fields_autoplaced yes)
@@ -2651,6 +2662,17 @@
 			(justify left bottom)
 		)
 		(uuid "6f3be8b9-080c-4fde-94f0-44d18c1675ff")
+	)
+	(label "SDA"
+		(at 223.52 118.11 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f1e09ab5-2ab5-4e2b-9d9b-b069b5fe1617")
 	)
 	(global_label "CH1"
 		(shape output)
