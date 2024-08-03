@@ -21,6 +21,11 @@ byte current_gear = GEAR_NEUTRAL;
 
 long gauge_value;
 
+long last_boot = millis();
+bool boot_done = false;
+bool led_value = false;
+bool display_started = false;
+
 int map_input() {
   /* Disable interrupts to increase accuracy */
   // noInterrupts();
@@ -235,19 +240,21 @@ void draw_gauge() {
 }
 
 void setup() {
-  pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, HIGH);
+  pinMode(CFG_1, INPUT_PULLUP);
+  pinMode(CFG_2, INPUT_PULLUP);
+
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, HIGH);
+  pinMode(LED_1, OUTPUT);
+  digitalWrite(LED_1, LOW);
+  pinMode(LED_2, OUTPUT);
+  digitalWrite(LED_2, LOW);
 
   throttle.attach();
   // while (!ServoInput.available()) {
 	// 	delay(50);
 	// }
 }
-
-long last_boot = millis();
-bool boot_done = false;
-bool led_value = false;
-bool display_started = false;
 
 void show_boot() {
   draw_bezel();
@@ -260,7 +267,7 @@ void show_boot() {
 }
 
 void show_unconnected() {
-  digitalWrite(LED_PIN, led_value ? HIGH : LOW);
+  digitalWrite(LED_2, led_value ? HIGH : LOW);
   led_value = !led_value;
 
   draw_bezel();
@@ -284,7 +291,7 @@ void show_gauges() {
 void loop() {
   /* This seems stupid, but for some reason u8g2 fails to initialize properly
    * without it. Maybe that's something else throwing wrenches into its
-   * routines, but until there's an explanation I guess I need it.
+   * routines, I just don't know. Until there's an explanation, I guess I need it.
    */
   if (!display_started) {
     delay(2000);
