@@ -1,0 +1,11 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "rc_light_system")(type "Legacy")(uri "$KIPRJMOD/../common/library/rc_light_system.lib")(options "")(descr ""))
+  (lib (name "solder_select")(type "Legacy")(uri "$KIPRJMOD/../common/library/solder_select.lib")(options "")(descr ""))
+  (lib (name "mounting")(type "Legacy")(uri "$KIPRJMOD/../common/library/mounting.lib")(options "")(descr ""))
+  (lib (name "arduino_pro_micro")(type "Legacy")(uri "$KIPRJMOD/../common/library/arduino_pro_micro.lib")(options "")(descr ""))
+  (lib (name "digispark")(type "Legacy")(uri "$KIPRJMOD/../common/library/digispark.lib")(options "")(descr ""))
+  (lib (name "I2C_OLED")(type "Legacy")(uri "$KIPRJMOD/../common/library/I2C_OLED.lib")(options "")(descr ""))
+  (lib (name "RC Dashboard SuperMini-rescue")(type "KiCad")(uri "${KIPRJMOD}/RC Dashboard SuperMini-rescue.kicad_sym")(options "")(descr ""))
+  (lib (name "SuperMini")(type "KiCad")(uri "$KIPRJMOD/../common/library/SuperMini.kicad_sym")(options "")(descr ""))
+)
