@@ -3,20 +3,22 @@
  * receiver combination. Failiure to do so may cause the lighting system to
  * trigger prematurely or not at all.
  */
-#define THROTTLE_PULSE_MIN 1166
-#define THROTTLE_PULSE_MAX 1980
+#define CH1_PULSE_MIN 1000
+#define CH1_PULSE_MAX 2000
+#define CH2_PULSE_MIN 1166
+#define CH2_PULSE_MAX 1980
 
 /* The hardware can combine two outputs in order to have a difference in
  * brightness, allowing a light to operate in three modes: off/low/high.
  * The code has therefore been implemented with the same modes, but placed
  * at specific thresholds in relation to controller input. This mostly applies
- * to throttle.
+ * to channel2.
  */
 #define LOW_THRESHOLD 10
 #define HIGH_THRESHOLD 80
 
 /* Defines the style used for the gauge, mainly it just determines the image
- * used for the full throttle bar.
+ * used for the full channel2 bar.
  * These can be described as following:
  *  1 - Digital vertical bars
  *  2 - Same as above except filled in

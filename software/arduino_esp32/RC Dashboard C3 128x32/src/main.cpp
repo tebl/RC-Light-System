@@ -5,8 +5,11 @@
 #include "settings.h"
 #include "images.h"
 
-const int ThrottleSignalPin = PIN_THR;
-ServoInputPin<ThrottleSignalPin> throttle(THROTTLE_PULSE_MIN, THROTTLE_PULSE_MAX);
+const int ch1_signal_pin = PIN_CH1;
+ServoInputPin<ch1_signal_pin> channel1(CH1_PULSE_MIN, CH1_PULSE_MAX);
+
+const int ch2_signal_pin = PIN_CH2;
+ServoInputPin<ch2_signal_pin> channel2(CH2_PULSE_MIN, CH2_PULSE_MAX);
 
 U8G2_SSD1306_128X32_UNIVISION_1_SW_I2C u8g2(U8G2_R0, /* clock=*/ PIN_SCL, /* data=*/ PIN_SDA, /* reset=*/ U8X8_PIN_NONE);
 
@@ -29,7 +32,7 @@ bool display_started = false;
 int map_input() {
   /* Disable interrupts to increase accuracy */
   // noInterrupts();
-  // last_pulse = pulseIn(PIN_THR, HIGH, 25000);
+  // last_pulse = pulseIn(PIN_CH2, HIGH, 25000);
   // interrupts();
 
   // if (last_pulse == 0) return 0;
@@ -37,10 +40,10 @@ int map_input() {
 	// if (last_pulse <= THROTTLE_PULSE_MIN) return -100;
 	// if (last_pulse >= THROTTLE_PULSE_MAX) return 100;
   // return map(last_pulse, THROTTLE_PULSE_MIN, THROTTLE_PULSE_MAX, -100, 100);
-  return throttle.map(-100, 100);
+  return channel2.map(-100, 100);
 }
 
-/* This will read the throttle value, but take note that current_value will
+/* This will read the channel2 value, but take note that current_value will
  * read as 0 (stick in neutral position) even while a signal is not present
  * such as when it isn't connected to the receiver.
  */
@@ -250,7 +253,7 @@ void setup() {
   pinMode(LED_2, OUTPUT);
   digitalWrite(LED_2, LOW);
 
-  throttle.attach();
+  channel2.attach();
   // while (!ServoInput.available()) {
 	// 	delay(50);
 	// }
@@ -272,7 +275,7 @@ void show_unconnected() {
 
   draw_bezel();
   draw_gear();
-  draw_logo();        
+  draw_logo();
 }
 
 void show_gauges() {
@@ -290,8 +293,8 @@ void show_gauges() {
 
 void loop() {
   /* This seems stupid, but for some reason u8g2 fails to initialize properly
-   * without it. Maybe that's something else throwing wrenches into its
-   * routines, I just don't know. Until there's an explanation, I guess I need it.
+   * without it. Until there's an explanation for the reason, I guess I need
+   * to keep it in place.
    */
   if (!display_started) {
     delay(2000);

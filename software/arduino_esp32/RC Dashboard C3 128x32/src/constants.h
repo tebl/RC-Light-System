@@ -1,7 +1,8 @@
 #pragma once
 #define PIN_SDA 1
 #define PIN_SCL 0
-#define PIN_THR 10
+#define PIN_CH1 20
+#define PIN_CH2 10
 #define LED_BUILTIN 8
 #define CFG_1 9
 #define CFG_2 7
