@@ -29,6 +29,7 @@ bool boot_done = false;
 bool led_value = false;
 bool display_started = false;
 
+
 int map_input() {
   /* Disable interrupts to increase accuracy */
   // noInterrupts();
@@ -42,6 +43,7 @@ int map_input() {
   // return map(last_pulse, THROTTLE_PULSE_MIN, THROTTLE_PULSE_MAX, -100, 100);
   return channel2.map(-100, 100);
 }
+
 
 /* This will read the channel2 value, but take note that current_value will
  * read as 0 (stick in neutral position) even while a signal is not present
@@ -58,6 +60,7 @@ void read_throttle() {
   // }
 }
 
+
 /* While the values we end up with can be considered to be between -100
  * and 100, zero being neutral, we need something slightly less fuzzy to
  * work with. Generally we use the low threshold in both direction as a
@@ -69,6 +72,7 @@ byte get_gear() {
   return GEAR_NEUTRAL;
 }
 
+
 void draw_bezel() {
   u8g2.drawXBMP(
     0, 
@@ -79,6 +83,7 @@ void draw_bezel() {
   );
 }
 
+
 void draw_logo() {
   u8g2.drawXBMP(
     8, 
@@ -88,6 +93,7 @@ void draw_logo() {
     image_boot
   );
 }
+
 
 /* It's a manual, sort of. There's no any actual transmission in a scale
  * sense, so we'll just put up 4 gears and be done with it. 
@@ -159,6 +165,7 @@ void draw_manual() {
   }
 }
 
+
 /* Set image according to which gear we're in... it's an automatic so it's 
  * Drive, Reverse or Neutral. 
  */
@@ -206,6 +213,7 @@ void draw_automatic() {
   }
 }
 
+
 void draw_gear() {
   #ifdef GEARS_MANUAL
     draw_manual();
@@ -213,6 +221,7 @@ void draw_gear() {
     draw_automatic();
   #endif
 }
+
 
 void draw_gauge() {
   u8g2.drawXBMP(
@@ -242,6 +251,7 @@ void draw_gauge() {
   u8g2.setDrawColor(2);
 }
 
+
 void setup() {
   pinMode(CFG_1, INPUT_PULLUP);
   pinMode(CFG_2, INPUT_PULLUP);
@@ -259,6 +269,7 @@ void setup() {
 	// }
 }
 
+
 void show_boot() {
   draw_bezel();
   draw_gear();
@@ -269,6 +280,7 @@ void show_boot() {
   }
 }
 
+
 void show_unconnected() {
   digitalWrite(LED_2, led_value ? HIGH : LOW);
   led_value = !led_value;
@@ -277,6 +289,7 @@ void show_unconnected() {
   draw_gear();
   draw_logo();
 }
+
 
 void show_gauges() {
   read_throttle();
@@ -291,15 +304,34 @@ void show_gauges() {
   draw_gauge();
 }
 
+
+void delay_start() {
+  unsigned long start = millis();
+  unsigned long diff;
+
+  analogWrite(LED_1, LED_1_LOW);
+  analogWrite(LED_2, LED_2_LOW);
+
+  do {
+    diff = millis() - start;
+    analogWrite(LED_1, map(diff, 0, START_DELAY, LED_1_LOW, LED_1_HIGH));
+    analogWrite(LED_2, map(diff, 0, START_DELAY, LED_2_LOW, LED_2_HIGH));
+    delay(10);
+  } while (diff < START_DELAY);
+
+  analogWrite(LED_1, LED_1_HIGH);
+  analogWrite(LED_2, LED_2_HIGH);
+}
+
+
 void loop() {
   /* This seems stupid, but for some reason u8g2 fails to initialize properly
    * without it. Until there's an explanation for the reason, I guess I need
-   * to keep it in place.
+   * to keep the delays in place.
    */
   if (!display_started) {
-    delay(2000);
+    delay_start();
     u8g2.begin();
-    // delay(2000);
 
     display_started = true;
   }

@@ -8,6 +8,13 @@
 #define CH2_PULSE_MIN 1166
 #define CH2_PULSE_MAX 1980
 
+#define LED_1_LOW 0
+#define LED_1_HIGH 255
+#define LED_2_LOW 0
+#define LED_2_HIGH 128
+
+#define START_DELAY 2000
+
 /* The hardware can combine two outputs in order to have a difference in
  * brightness, allowing a light to operate in three modes: off/low/high.
  * The code has therefore been implemented with the same modes, but placed
