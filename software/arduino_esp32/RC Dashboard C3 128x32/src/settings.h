@@ -8,10 +8,12 @@
 #define CH2_PULSE_MIN 1166
 #define CH2_PULSE_MAX 1980
 
-#define LED_1_LOW 0
+#define LED_1_LOW 32
 #define LED_1_HIGH 255
-#define LED_2_LOW 0
+#define LED_2_LOW 32
 #define LED_2_HIGH 128
+
+#define BLINKER_SPEED 375
 
 #define START_DELAY 2000
 

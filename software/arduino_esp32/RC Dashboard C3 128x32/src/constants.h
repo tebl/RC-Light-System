@@ -4,10 +4,10 @@
 #define PIN_CH1 20
 #define PIN_CH2 10
 #define LED_BUILTIN 8
-#define CFG_1 9
-#define CFG_2 7
+#define PIN_CFG 7
 #define LED_1 2
 #define LED_2 3
+#define PIN_BOOT 9
 
 #define GEAR_NEUTRAL 0
 #define GEAR_DRIVE 1

@@ -28,7 +28,16 @@ long last_boot = millis();
 bool boot_done = false;
 bool led_value = false;
 bool display_started = false;
+unsigned long led_timer = -1;
 
+/* Values are what we want the values to be, unless overridden by things such
+ * as warning indicators. The actual value is what it's currently set to,
+ * fading between the values as needed.
+ */
+int led_1_value = 0;
+int led_1_actual = 0;
+int led_2_value = 0;
+int led_2_actual = 0;
 
 int map_input() {
   /* Disable interrupts to increase accuracy */
@@ -252,9 +261,26 @@ void draw_gauge() {
 }
 
 
+//variables to keep track of the timing of recent interrupts
+unsigned long switch_updated = 0;  
+unsigned long last_switch_time = 0; 
+
+bool switch_was_pushed = false;
+
+void IRAM_ATTR switch_pushed() {
+  switch_updated = millis();
+  if (switch_updated - last_switch_time > 250) {
+    switch_was_pushed = true;
+    last_switch_time = switch_updated;
+  }
+}
+
+
 void setup() {
-  pinMode(CFG_1, INPUT_PULLUP);
-  pinMode(CFG_2, INPUT_PULLUP);
+  pinMode(PIN_BOOT, INPUT_PULLUP);
+  attachInterrupt(PIN_BOOT, switch_pushed, FALLING);
+
+  pinMode(PIN_CFG, INPUT_PULLUP);
 
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, HIGH);
@@ -264,9 +290,6 @@ void setup() {
   digitalWrite(LED_2, LOW);
 
   channel2.attach();
-  // while (!ServoInput.available()) {
-	// 	delay(50);
-	// }
 }
 
 
@@ -281,13 +304,51 @@ void show_boot() {
 }
 
 
+unsigned long last_blinker_update = -1;
 void show_unconnected() {
-  digitalWrite(LED_2, led_value ? HIGH : LOW);
-  led_value = !led_value;
+  if (led_timer == -1) {
+    led_timer = millis();
+    last_blinker_update = millis();
+
+    led_value = true;
+    digitalWrite(LED_BUILTIN, led_value ? HIGH : LOW);
+    analogWrite(LED_1, led_value ? LED_1_HIGH : LED_1_LOW);
+    analogWrite(LED_2, led_value ? LED_2_HIGH : LED_2_LOW);
+  }
+
+  if ((millis() - led_timer) > BLINKER_SPEED) {
+    led_timer = millis();
+    led_value = !led_value;
+
+    digitalWrite(LED_BUILTIN, led_value ? HIGH : LOW);
+  }
+
+  if ((millis() - last_blinker_update) > 20) {
+    last_blinker_update = millis();
+
+    unsigned long diff = millis() - led_timer;
+    if (diff > BLINKER_SPEED) diff = BLINKER_SPEED;
+    if (led_value) {
+      analogWrite(LED_1, map(diff, 0, BLINKER_SPEED, LED_1_HIGH, LED_1_LOW));
+      analogWrite(LED_2, map(diff, 0, BLINKER_SPEED, LED_2_HIGH, LED_2_LOW));
+    } else {
+      analogWrite(LED_1, map(diff, 0, BLINKER_SPEED, LED_1_LOW, LED_1_HIGH));
+      analogWrite(LED_2, map(diff, 0, BLINKER_SPEED, LED_2_LOW, LED_2_HIGH));
+    }
+  }
 
   draw_bezel();
   draw_gear();
   draw_logo();
+}
+
+void clear_unconnected() {
+  if (led_timer != -1) {
+    led_timer = -1;
+
+    analogWrite(LED_1, led_1_value);
+    analogWrite(LED_2, led_2_value);
+  }
 }
 
 
@@ -302,6 +363,52 @@ void show_gauges() {
   draw_bezel();
   draw_gear();
   draw_gauge();
+}
+
+
+void process_switch() {
+  if (switch_was_pushed) {
+    switch_was_pushed = false;
+
+    if (led_1_value < LED_1_LOW) {
+      led_1_value = LED_1_LOW;
+      return;
+    }
+
+    if (led_1_value < LED_1_HIGH) {
+      led_1_value = LED_1_HIGH;
+      return;
+    }
+
+    led_1_value = 0;
+  }
+}
+
+
+int next_led_value(int current, int max) {
+  current = current + 10;
+  if (current > max) current = max;
+  return current;
+}
+
+
+int previous_led_value(int current) {
+  current = current - 10;
+  if (current < 0) current = 0;
+  return current;
+}
+
+
+void process_leds() {
+  if (led_1_value > led_1_actual) {
+    led_1_actual = next_led_value(led_1_actual, LED_1_HIGH);
+    analogWrite(LED_1, led_1_actual);
+  }
+
+  if (led_1_value < led_1_actual) {
+    led_1_actual = previous_led_value(led_1_actual);
+    analogWrite(LED_1, led_1_actual);
+  }
 }
 
 
@@ -346,8 +453,12 @@ void loop() {
     if (!ServoInput.anyAvailable()) {
       show_unconnected();
       continue;
+    } else {
+      clear_unconnected();
     }
 
+    process_switch();
+    process_leds();
     show_gauges();
   } while ( u8g2.nextPage() );
 }
