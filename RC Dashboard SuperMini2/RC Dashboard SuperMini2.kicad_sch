@@ -2721,12 +2721,6 @@
 		(uuid "c821beb4-b82c-4f0d-bc92-1540f34cab4e")
 	)
 	(junction
-		(at 121.92 88.9)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e4b64a2a-9a3c-4062-8d2d-2db5e7938bcb")
-	)
-	(junction
 		(at 66.04 93.98)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2751,6 +2745,10 @@
 	(no_connect
 		(at 160.02 96.52)
 		(uuid "a3dcbaec-74e8-47f1-a492-b1c7433ca4ea")
+	)
+	(no_connect
+		(at 160.02 88.9)
+		(uuid "f0c464dd-ef0f-4628-b10c-5322ea8b42ff")
 	)
 	(wire
 		(pts
@@ -2994,16 +2992,6 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 88.9) (xy 127 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6364c13e-2fdc-45b8-a83d-b1ff6f7213a1")
-	)
-	(wire
-		(pts
 			(xy 121.92 83.82) (xy 127 83.82)
 		)
 		(stroke
@@ -3024,7 +3012,7 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 83.82) (xy 121.92 88.9)
+			(xy 121.92 83.82) (xy 121.92 96.52)
 		)
 		(stroke
 			(width 0)
@@ -3041,16 +3029,6 @@
 			(type default)
 		)
 		(uuid "6b044f56-af9b-4a86-96e4-684ffe200e94")
-	)
-	(wire
-		(pts
-			(xy 137.16 88.9) (xy 160.02 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6f4af4a5-b549-4e79-b092-4da9808c4b60")
 	)
 	(wire
 		(pts
@@ -3091,16 +3069,6 @@
 			(type default)
 		)
 		(uuid "7503165a-6a2d-476d-aff0-488e5fbb7d24")
-	)
-	(wire
-		(pts
-			(xy 121.92 88.9) (xy 121.92 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "773204e1-499f-4bcd-99be-fb5e32d8e181")
 	)
 	(wire
 		(pts
@@ -3373,7 +3341,7 @@
 		)
 		(uuid "8dcefb49-62af-48d5-8a3e-a09851166088")
 	)
-	(label "CFG_2"
+	(label "CFG"
 		(at 147.32 83.82 0)
 		(fields_autoplaced yes)
 		(effects
@@ -3394,17 +3362,6 @@
 			(justify right bottom)
 		)
 		(uuid "4f1e3cf6-fedf-43e5-aab5-a8176da4c17c")
-	)
-	(label "CFG_1"
-		(at 147.32 88.9 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5af20e65-3d90-4d66-8715-b142c643c28f")
 	)
 	(label "SCL"
 		(at 223.52 120.65 180)
@@ -4927,7 +4884,7 @@
 				)
 			)
 		)
-		(property "Value" "CFG2"
+		(property "Value" "CFG"
 			(at 132.08 80.01 0)
 			(effects
 				(font
@@ -5354,74 +5311,6 @@
 			(project ""
 				(path "/8ea515ea-bab1-45cc-8dd8-41301b605afe"
 					(reference "#PWR08")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Jumper:Jumper_2_Open")
-		(at 132.08 88.9 0)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim yes)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "d0b384f1-3cfb-4aad-8f6c-48ab81996177")
-		(property "Reference" "JP2"
-			(at 132.08 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "CFG1"
-			(at 132.08 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "solder_bridge:bridge"
-			(at 132.08 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 132.08 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Jumper, 2-pole, open"
-			(at 132.08 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "9c46a9c4-0096-4532-8b66-7af61a9855b4")
-		)
-		(pin "2"
-			(uuid "b8378d10-4de0-4b31-9324-0711e7790a51")
-		)
-		(instances
-			(project ""
-				(path "/8ea515ea-bab1-45cc-8dd8-41301b605afe"
-					(reference "JP2")
 					(unit 1)
 				)
 			)

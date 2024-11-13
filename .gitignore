@@ -7,6 +7,9 @@
 *.kicad_pcb-bak
 *.zip
 *.sch-bak
+*.lck
+\#auto_saved_files\#
+_autosave*
 
 # Netlist files (exported from Eeschema)
 *.net
