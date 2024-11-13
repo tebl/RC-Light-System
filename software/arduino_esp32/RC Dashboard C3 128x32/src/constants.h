@@ -13,3 +13,7 @@
 #define GEAR_DRIVE 1
 #define GEAR_REVERSE 2
 #define GEAR_PARKED 3
+
+#define AUX_OFF 0
+#define AUX_ON 1
+#define AUX_INVALID 255

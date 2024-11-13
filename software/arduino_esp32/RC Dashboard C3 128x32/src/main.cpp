@@ -13,21 +13,23 @@ ServoInputPin<ch2_signal_pin> channel2(CH2_PULSE_MIN, CH2_PULSE_MAX);
 
 U8G2_SSD1306_128X32_UNIVISION_1_SW_I2C u8g2(U8G2_R0, /* clock=*/ PIN_SCL, /* data=*/ PIN_SDA, /* reset=*/ U8X8_PIN_NONE);
 
-int last_pulse = 0;
-long last_value = 0;
-long current_value = 0;
-bool value_changed = true;
+long ch1_value = 0;
+bool ch1_changed = true;
+byte ch1_state = AUX_INVALID;
+long ch2_value = 0;
+bool ch2_changed = true;
+byte current_gear = GEAR_NEUTRAL;
 
 double corrected;
 byte num_blanks, blank_start;
-byte current_gear = GEAR_NEUTRAL;
 
 long gauge_value;
 
 long last_boot = millis();
 bool boot_done = false;
-bool led_value = false;
 bool display_started = false;
+
+bool led_value = false;
 unsigned long led_timer = -1;
 
 /* Values are what we want the values to be, unless overridden by things such
@@ -39,34 +41,30 @@ int led_1_actual = 0;
 int led_2_value = 0;
 int led_2_actual = 0;
 
-int map_input() {
-  /* Disable interrupts to increase accuracy */
-  // noInterrupts();
-  // last_pulse = pulseIn(PIN_CH2, HIGH, 25000);
-  // interrupts();
 
-  // if (last_pulse == 0) return 0;
+void set_led_1(int new_value) {
+  led_1_value = new_value;
+}
 
-	// if (last_pulse <= THROTTLE_PULSE_MIN) return -100;
-	// if (last_pulse >= THROTTLE_PULSE_MAX) return 100;
-  // return map(last_pulse, THROTTLE_PULSE_MIN, THROTTLE_PULSE_MAX, -100, 100);
-  return channel2.map(-100, 100);
+void write_led_1(int new_value) {
+  led_1_actual = new_value;
+  analogWrite(LED_1, new_value);
+}
+
+void set_led_2(int new_value) {
+  led_2_value = new_value;
+}
+
+void write_led_2(int new_value) {
+  led_2_actual = new_value;
+  analogWrite(LED_2, new_value);
 }
 
 
-/* This will read the channel2 value, but take note that current_value will
- * read as 0 (stick in neutral position) even while a signal is not present
- * such as when it isn't connected to the receiver.
- */
-void read_throttle() {
-  current_value = map_input();
-  value_changed = true;
-  // if (last_pulse != 0) {
-  //   value_changed = (current_value != last_value);
-  //   last_value = current_value;
-  // } else {
-  //   value_changed = false;
-  // }
+byte get_aux() {
+  if (ch1_value > LOW_THRESHOLD) return AUX_ON;
+  if (ch1_value < -(LOW_THRESHOLD)) return AUX_OFF;
+  return AUX_INVALID;
 }
 
 
@@ -76,9 +74,45 @@ void read_throttle() {
  * configurable deadzone, placing the gears to each side of it.
  */
 byte get_gear() {
-  if (current_value > LOW_THRESHOLD) return GEAR_DRIVE;
-  if (current_value < -(LOW_THRESHOLD)) return GEAR_REVERSE;
+  if (ch2_value > LOW_THRESHOLD) return GEAR_DRIVE;
+  if (ch2_value < -(LOW_THRESHOLD)) return GEAR_REVERSE;
   return GEAR_NEUTRAL;
+}
+
+
+int map_ch1() {
+  ch1_changed = true;
+  return channel1.map(-100, 100);
+}
+
+
+int map_ch2() {
+  ch2_changed = true;
+  return channel2.map(-100, 100);
+}
+
+
+/* This will read the channel2 value, but take note that current_value will
+ * read as 0 (stick in neutral position) even while a signal is not present
+ * such as when it isn't connected to the receiver.
+ */
+void read_values() {
+  // Auxilliary channel
+  ch1_state = AUX_INVALID;
+  if (channel1.available()) {
+    ch1_value = map_ch1();
+    if (ch1_changed) {
+      ch1_state = get_aux();
+    }
+  }
+
+  // Throttle channel
+  ch2_value = map_ch2();
+  if (ch2_changed) {
+    current_gear = get_gear();
+    gauge_value = ch2_value;
+    if (gauge_value < 0) gauge_value = -gauge_value;
+  }
 }
 
 
@@ -104,8 +138,10 @@ void draw_logo() {
 }
 
 
-/* It's a manual, sort of. There's no any actual transmission in a scale
- * sense, so we'll just put up 4 gears and be done with it. 
+/* It's a manual, but only sort of. There's no any actual transmission in
+ * a scale sense, so we'll just put up 4 gears and be done with it. Why 4?
+ * It's what I had on my first car, and the display updates too slow for
+ * more of them. 
  */
 void draw_manual() {
   switch (current_gear) {
@@ -264,9 +300,7 @@ void draw_gauge() {
 //variables to keep track of the timing of recent interrupts
 unsigned long switch_updated = 0;  
 unsigned long last_switch_time = 0; 
-
 bool switch_was_pushed = false;
-
 void IRAM_ATTR switch_pushed() {
   switch_updated = millis();
   if (switch_updated - last_switch_time > 250) {
@@ -289,11 +323,21 @@ void setup() {
   pinMode(LED_2, OUTPUT);
   digitalWrite(LED_2, LOW);
 
+  channel1.attach();
   channel2.attach();
+
+  set_led_1(LED_1_DEFAULT);
+  set_led_2(LED_2_DEFAULT);
 }
 
 
 void show_boot() {
+  // Handle disabled boot screen
+  if (BOOT_DURATION == 0) {
+    boot_done = true;
+    return;
+  }
+
   draw_bezel();
   draw_gear();
   draw_logo();
@@ -329,11 +373,11 @@ void show_unconnected() {
     unsigned long diff = millis() - led_timer;
     if (diff > BLINKER_SPEED) diff = BLINKER_SPEED;
     if (led_value) {
-      analogWrite(LED_1, map(diff, 0, BLINKER_SPEED, LED_1_HIGH, LED_1_LOW));
-      analogWrite(LED_2, map(diff, 0, BLINKER_SPEED, LED_2_HIGH, LED_2_LOW));
+      write_led_1(map(diff, 0, BLINKER_SPEED, LED_1_HIGH, LED_1_LOW));
+      write_led_2(map(diff, 0, BLINKER_SPEED, LED_2_HIGH, LED_2_LOW));
     } else {
-      analogWrite(LED_1, map(diff, 0, BLINKER_SPEED, LED_1_LOW, LED_1_HIGH));
-      analogWrite(LED_2, map(diff, 0, BLINKER_SPEED, LED_2_LOW, LED_2_HIGH));
+      write_led_1(map(diff, 0, BLINKER_SPEED, LED_1_LOW, LED_1_HIGH));
+      write_led_2(map(diff, 0, BLINKER_SPEED, LED_2_LOW, LED_2_HIGH));
     }
   }
 
@@ -342,27 +386,11 @@ void show_unconnected() {
   draw_logo();
 }
 
+
 void clear_unconnected() {
   if (led_timer != -1) {
     led_timer = -1;
-
-    analogWrite(LED_1, led_1_value);
-    analogWrite(LED_2, led_2_value);
   }
-}
-
-
-void show_gauges() {
-  read_throttle();
-  if (value_changed) {
-    current_gear = get_gear();
-    gauge_value = current_value;
-    if (gauge_value < 0) gauge_value = -gauge_value;
-  }
-
-  draw_bezel();
-  draw_gear();
-  draw_gauge();
 }
 
 
@@ -371,12 +399,12 @@ void process_switch() {
     switch_was_pushed = false;
 
     if (led_1_value < LED_1_LOW) {
-      led_1_value = LED_1_LOW;
+      set_led_1(LED_1_LOW);
       return;
     }
 
     if (led_1_value < LED_1_HIGH) {
-      led_1_value = LED_1_HIGH;
+      set_led_1(LED_1_HIGH);
       return;
     }
 
@@ -386,28 +414,45 @@ void process_switch() {
 
 
 int next_led_value(int current, int max) {
-  current = current + 10;
+  current = current + LED_STEPS;
   if (current > max) current = max;
   return current;
 }
 
 
 int previous_led_value(int current) {
-  current = current - 10;
+  current = current - LED_STEPS;
   if (current < 0) current = 0;
   return current;
 }
 
 
 void process_leds() {
+  if (ch1_state == AUX_ON) set_led_1(LED_1_HIGH);
+  if (ch1_state == AUX_OFF) set_led_1(LED_1_LOW);
   if (led_1_value > led_1_actual) {
-    led_1_actual = next_led_value(led_1_actual, LED_1_HIGH);
-    analogWrite(LED_1, led_1_actual);
+    write_led_1(next_led_value(led_1_actual, LED_1_HIGH));
   }
 
   if (led_1_value < led_1_actual) {
-    led_1_actual = previous_led_value(led_1_actual);
-    analogWrite(LED_1, led_1_actual);
+    write_led_1(previous_led_value(led_1_actual));
+  }
+
+
+  if (current_gear == GEAR_REVERSE) {
+    set_led_2(map(gauge_value, 0, 100, LED_2_LOW, LED_2_HIGH));
+  } else {
+    set_led_2(LED_2_LOW);
+    write_led_2(LED_2_LOW);
+  }
+
+
+  if (led_2_value > led_2_actual) {
+    write_led_2(next_led_value(led_2_actual, LED_2_HIGH));
+  }
+
+  if (led_2_value < led_2_actual) {
+    write_led_2(previous_led_value(led_2_actual));
   }
 }
 
@@ -421,13 +466,24 @@ void delay_start() {
 
   do {
     diff = millis() - start;
-    analogWrite(LED_1, map(diff, 0, START_DELAY, LED_1_LOW, LED_1_HIGH));
-    analogWrite(LED_2, map(diff, 0, START_DELAY, LED_2_LOW, LED_2_HIGH));
+    write_led_1(map(diff, 0, START_DELAY, LED_1_LOW, LED_1_HIGH));
+    write_led_2(map(diff, 0, START_DELAY, LED_2_LOW, LED_2_HIGH));
     delay(10);
   } while (diff < START_DELAY);
 
-  analogWrite(LED_1, LED_1_HIGH);
-  analogWrite(LED_2, LED_2_HIGH);
+  write_led_1(LED_1_HIGH);
+  write_led_2(LED_2_HIGH);
+  last_boot = millis();
+}
+
+
+/* Show working gauges on the screen, meaning that we've validated that we
+ * have a valid connection up to the receiver.
+ */
+void show_gauges() {
+  draw_bezel();
+  draw_gear();
+  draw_gauge();
 }
 
 
@@ -457,6 +513,7 @@ void loop() {
       clear_unconnected();
     }
 
+    read_values();
     process_switch();
     process_leds();
     show_gauges();

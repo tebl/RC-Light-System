@@ -5,13 +5,18 @@
  */
 #define CH1_PULSE_MIN 1000
 #define CH1_PULSE_MAX 2000
-#define CH2_PULSE_MIN 1166
-#define CH2_PULSE_MAX 1980
+#define CH2_PULSE_MIN 1000
+#define CH2_PULSE_MAX 1900
 
 #define LED_1_LOW 32
 #define LED_1_HIGH 255
 #define LED_2_LOW 32
 #define LED_2_HIGH 128
+
+#define LED_1_DEFAULT LED_1_HIGH
+#define LED_2_DEFAULT LED_2_LOW
+
+#define LED_STEPS 10
 
 #define BLINKER_SPEED 375
 
