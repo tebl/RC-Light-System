@@ -1,0 +1,56 @@
+#pragma once
+/* These values need to be adjusted to the values used by your transmitter and
+ * receiver combination. Failiure to do so may cause the lighting system to
+ * trigger prematurely or not at all.
+ */
+#define CH1_PULSE_MIN 1000
+#define CH1_PULSE_MAX 2000
+#define CH2_PULSE_MIN 1000
+#define CH2_PULSE_MAX 2000
+
+#define LED_1_LOW 32
+#define LED_1_HIGH 255
+#define LED_1_DEFAULT LED_1_LOW
+#define LED_2_LOW LED_1_LOW
+#define LED_2_HIGH LED_1_HIGH
+#define LED_2_DEFAULT LED_2_LOW
+#define LED_3_LOW LED_1_LOW
+#define LED_3_HIGH LED_1_HIGH
+#define LED_3_DEFAULT LED_3_LOW
+#define LED_4_LOW LED_1_LOW
+#define LED_4_HIGH LED_1_HIGH
+#define LED_4_DEFAULT LED_4_LOW
+
+#define LED_STEPS 10
+
+#define BLINKER_SPEED 375
+
+#define START_DELAY 2000
+
+/* The hardware can combine two outputs in order to have a difference in
+ * brightness, allowing a light to operate in three modes: off/low/high.
+ * The code has therefore been implemented with the same modes, but placed
+ * at specific thresholds in relation to controller input. This mostly applies
+ * to channel2.
+ */
+#define LOW_THRESHOLD 10
+#define HIGH_THRESHOLD 80
+
+/* Defines the style used for the gauge, mainly it just determines the image
+ * used for the full channel2 bar.
+ * These can be described as following:
+ *  1 - Digital vertical bars
+ *  2 - Same as above except filled in
+ *  3 - High contrast that fills all the space below the bar.
+ *
+ * LIMIT_REVERSE is a value (in pixels) for how much of the gauge will be
+ * used in reverse, mainly because we would normally want to set the ESC
+ * to drive the motor to a lesser degree while in reverse. Comment out the
+ * setting in order to disable this feature.
+ */
+#define GAUGE_STYLE 1
+#define GEARS_MANUAL
+// #define GEARS_ALT
+#define LIMIT_REVERSE 63
+
+#define BOOT_DURATION 3000
