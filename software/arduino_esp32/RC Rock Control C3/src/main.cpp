@@ -10,31 +10,34 @@ const int ch2_signal_pin = PIN_CH2;
 ServoInputPin<ch2_signal_pin> channel2(CH2_PULSE_MIN, CH2_PULSE_MAX);
 
 struct Channel {
-  int value;
-  int last_value;
-  bool changed;
-  byte state;
-  bool available;
+  int value;          // Channel value
+  int last_value;     // Previous value read
+  bool changed;       // Value changed during this loop
+  byte state;         // Interpreted channel state
+  bool available;     // Pulses observed?
 };
 Channel CH1 = { 0, 0, true, STATE_IDLE, false };
 Channel CH2 = { 0, 0, true, STATE_IDLE, false };
 
 struct LED {
-  const uint8_t pin;
-  const uint8_t low;
-  const uint8_t high;
+  const uint8_t pin;  // Physical pin
+  const uint8_t low;  // Weak light value
+  const uint8_t high; // Strong light value
 
-  int value;
-  int actual;
+  int value;          // Brightness we want it to have
+  int actual;         // Brightness we're currently at, fading towards value
 };
 
-LED LED_FRONT_LEFT = { PIN_LED_1, LED_1_LOW, LED_1_HIGH, LED_1_DEFAULT, 0 };  // LED1
-LED LED_REAR_LEFT = { PIN_LED_2, LED_2_LOW, LED_2_HIGH, LED_2_DEFAULT, 0 };   // LED2
-LED LED_REAR_RIGHT = { PIN_LED_3, LED_3_LOW, LED_3_HIGH, LED_3_DEFAULT, 0 };  // LED3
-LED LED_FRONT_RIGHT = { PIN_LED_4, LED_4_LOW, LED_4_HIGH, LED_4_DEFAULT, 0 }; // LED4
+LED LED_FRONT_LEFT = { PIN_LED_1, LED_1_LOW, LED_1_HIGH, LED_1_DEFAULT, -1 };  // LED1
+LED LED_REAR_LEFT = { PIN_LED_2, LED_2_LOW, LED_2_HIGH, LED_2_DEFAULT, -1 };   // LED2
+LED LED_REAR_RIGHT = { PIN_LED_3, LED_3_LOW, LED_3_HIGH, LED_3_DEFAULT, -1 };  // LED3
+LED LED_FRONT_RIGHT = { PIN_LED_4, LED_4_LOW, LED_4_HIGH, LED_4_DEFAULT, -1 }; // LED4
 
 bool builtin_value = false;
 unsigned long builtin_timer = -1;
+
+uint8_t current_mode = MODE_BREATHING;
+
 
 void set_led(LED *led, int new_value) {
   led->value = new_value;
@@ -42,15 +45,17 @@ void set_led(LED *led, int new_value) {
 
 
 void write_led(LED *led, int new_value) {
-  led->actual = new_value;
-  analogWrite(led->pin, new_value);
+  if (led->actual == -1 || led->actual != new_value) {
+    led->actual = new_value;
+    analogWrite(led->pin, new_value);
+  }
 }
 
 
 int map_value(Channel *channel, bool available, long new_value) {
   channel->last_value = channel->value;
   channel->value = new_value;
-  channel->changed = true; //(channel->last_value != channel->value);
+  channel->changed = (channel->last_value != channel->value);
   channel->available = available;
 
   if (channel->changed) {
@@ -58,22 +63,21 @@ int map_value(Channel *channel, bool available, long new_value) {
     if (channel->value > LOW_THRESHOLD) channel->state = STATE_POSITIVE;
     if (channel->value < -(LOW_THRESHOLD)) channel->state = STATE_NEGATIVE;
   }
-  return AUX_INVALID;
+  return STATE_INVALID;
 }
 
 
-/* This will read the channel2 value, but take note that current_value will
- * read as 0 (stick in neutral position) even while a signal is not present
- * such as when it isn't connected to the receiver.
+/* This will read channel values, but take note that current_value will
+ * read as 0 (stick in neutral position). Possiblywhile a signal is not
+ * actually present, such as when the cable has fallen out.
  */
 void read_values() {
   // Steering
-  // map_value(&CH1, true, channel1.map(-100, 100));
   map_value(&CH1, channel1.available(), channel1.map(-100, 100));
 
   // Throttle
+  // Note: channel2 is assumed to be available, obviously won't work otherwise
   map_value(&CH2, true, channel2.map(-100, 100));
-  // map_value(&CH2, channel2.available(), channel2.map(-100, 100));
 }
 
 
@@ -119,7 +123,12 @@ void process_switch() {
   if (switch_was_pushed) {
     switch_was_pushed = false;
 
-    // do things
+    // actually do things
+    if (current_mode == MODE_LAST) {
+      current_mode = MODE_DISABLED;
+    } else {
+      current_mode++;
+    }
   }
 }
 
@@ -144,6 +153,43 @@ void update_led(LED *led) {
   }
   if (led->value < led->actual) {
     write_led(led, previous_led_value(led->actual));
+  }
+}
+
+
+unsigned long breathing_timer = -1;
+unsigned long breathing_diff;
+bool breathing_value = true;
+void process_breathing() {
+  if (breathing_timer == -1) {
+    breathing_timer = millis();
+
+    breathing_value = false;
+    set_led(&LED_FRONT_LEFT, breathing_value ? LED_FRONT_LEFT.high : LED_FRONT_LEFT.low);
+    set_led(&LED_REAR_LEFT, breathing_value ? LED_REAR_LEFT.high : LED_REAR_LEFT.low);
+    set_led(&LED_REAR_RIGHT, breathing_value ? LED_REAR_RIGHT.high : LED_REAR_RIGHT.low);
+    set_led(&LED_FRONT_RIGHT, breathing_value ? LED_FRONT_RIGHT.high : LED_FRONT_RIGHT.low);
+  }
+
+
+  if ((millis() - breathing_timer) > BREATHING_SPEED) {
+    breathing_timer = millis();
+    breathing_value = !breathing_value;
+  }
+
+
+  breathing_diff = millis() - breathing_timer;
+  if (breathing_diff > BREATHING_SPEED) breathing_diff = BREATHING_SPEED;
+  if (breathing_value) {
+    set_led(&LED_FRONT_LEFT, map(breathing_diff, 0, BREATHING_SPEED, LED_1_HIGH, LED_1_LOW));
+    set_led(&LED_REAR_LEFT, map(breathing_diff, 0, BREATHING_SPEED, LED_2_HIGH, LED_2_LOW));
+    set_led(&LED_REAR_RIGHT, map(breathing_diff, 0, BREATHING_SPEED, LED_3_HIGH, LED_3_LOW));
+    set_led(&LED_FRONT_RIGHT, map(breathing_diff, 0, BREATHING_SPEED, LED_4_HIGH, LED_4_LOW));
+  } else {
+    set_led(&LED_FRONT_LEFT, map(breathing_diff, 0, BREATHING_SPEED, LED_1_LOW, LED_1_HIGH));
+    set_led(&LED_REAR_LEFT, map(breathing_diff, 0, BREATHING_SPEED, LED_2_LOW, LED_2_HIGH));
+    set_led(&LED_REAR_RIGHT, map(breathing_diff, 0, BREATHING_SPEED, LED_3_LOW, LED_3_HIGH));
+    set_led(&LED_FRONT_RIGHT, map(breathing_diff, 0, BREATHING_SPEED, LED_4_LOW, LED_4_HIGH));
   }
 }
 
@@ -176,13 +222,48 @@ void process_single() {
   }
 }
 
-void process_leds() {
 
+void process_dynamic() {
   if (CH1.available && CH2.available) {
     //process_dual();
     process_single();
   } else {
     process_single();
+  }
+}
+
+
+void process_leds() {
+  switch (current_mode) {
+    case MODE_DYNAMIC:
+      process_dynamic();
+      break;
+
+    case MODE_BREATHING:
+      process_breathing();
+      break;
+
+    case MODE_LOW:
+      set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
+      set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
+      set_led(&LED_REAR_LEFT, LED_REAR_LEFT.low);
+      set_led(&LED_REAR_RIGHT, LED_REAR_RIGHT.low);
+      break;
+
+    case MODE_HIGH:
+      set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.high);
+      set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.high);
+      set_led(&LED_REAR_LEFT, LED_REAR_LEFT.high);
+      set_led(&LED_REAR_RIGHT, LED_REAR_RIGHT.high);
+      break;
+
+    case MODE_DISABLED:
+    default:
+      set_led(&LED_FRONT_LEFT, 0);
+      set_led(&LED_FRONT_RIGHT, 0);
+      set_led(&LED_REAR_LEFT, 0);
+      set_led(&LED_REAR_RIGHT, 0);
+      break;
   }
 
   update_led(&LED_FRONT_LEFT);
