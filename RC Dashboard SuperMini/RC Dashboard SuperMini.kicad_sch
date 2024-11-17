@@ -2151,16 +2151,14 @@
 		(uuid "c821beb4-b82c-4f0d-bc92-1540f34cab4e")
 	)
 	(junction
-		(at 121.92 88.9)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e4b64a2a-9a3c-4062-8d2d-2db5e7938bcb")
-	)
-	(junction
 		(at 66.04 93.98)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "eec55f54-036a-4519-9ead-c5eeae64e233")
+	)
+	(no_connect
+		(at 146.05 88.9)
+		(uuid "15e04e1a-37ce-4ca2-a177-a46ee99d7134")
 	)
 	(no_connect
 		(at 160.02 81.28)
@@ -2372,16 +2370,6 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 88.9) (xy 127 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6364c13e-2fdc-45b8-a83d-b1ff6f7213a1")
-	)
-	(wire
-		(pts
 			(xy 121.92 83.82) (xy 127 83.82)
 		)
 		(stroke
@@ -2392,7 +2380,7 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 83.82) (xy 121.92 88.9)
+			(xy 121.92 83.82) (xy 121.92 96.52)
 		)
 		(stroke
 			(width 0)
@@ -2409,16 +2397,6 @@
 			(type default)
 		)
 		(uuid "6b044f56-af9b-4a86-96e4-684ffe200e94")
-	)
-	(wire
-		(pts
-			(xy 137.16 88.9) (xy 160.02 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6f4af4a5-b549-4e79-b092-4da9808c4b60")
 	)
 	(wire
 		(pts
@@ -2449,16 +2427,6 @@
 			(type default)
 		)
 		(uuid "72b03874-6287-4ee5-8f27-f1db0c4f854e")
-	)
-	(wire
-		(pts
-			(xy 121.92 88.9) (xy 121.92 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "773204e1-499f-4bcd-99be-fb5e32d8e181")
 	)
 	(wire
 		(pts
@@ -2582,6 +2550,16 @@
 	)
 	(wire
 		(pts
+			(xy 146.05 88.9) (xy 160.02 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b88fb4b6-84ed-4d86-bc51-15cba680ecb5")
+	)
+	(wire
+		(pts
 			(xy 208.28 83.82) (xy 200.66 83.82)
 		)
 		(stroke
@@ -2671,7 +2649,18 @@
 		)
 		(uuid "548182c9-6bb4-4725-ae2a-3a583058d0a5")
 	)
-	(label "CFG_2"
+	(label "BOOT"
+		(at 147.32 88.9 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0c531362-fb19-45ce-9efa-05507b4beb20")
+	)
+	(label "CFG"
 		(at 147.32 83.82 0)
 		(fields_autoplaced yes)
 		(effects
@@ -2692,17 +2681,6 @@
 			(justify right bottom)
 		)
 		(uuid "4f1e3cf6-fedf-43e5-aab5-a8176da4c17c")
-	)
-	(label "CFG_1"
-		(at 147.32 88.9 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5af20e65-3d90-4d66-8715-b142c643c28f")
 	)
 	(label "SCL"
 		(at 223.52 120.65 180)
@@ -2749,13 +2727,13 @@
 		(uuid "f1e09ab5-2ab5-4e2b-9d9b-b069b5fe1617")
 	)
 	(label "BUILTIN_LED"
-		(at 158.75 86.36 180)
+		(at 147.32 86.36 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
 		(uuid "f4500693-8fe7-4e33-bb1a-d403153a100e")
 	)
@@ -3610,7 +3588,7 @@
 				)
 			)
 		)
-		(property "Value" "CFG_2"
+		(property "Value" "CFG"
 			(at 132.08 80.01 0)
 			(effects
 				(font
@@ -3831,74 +3809,6 @@
 			(project ""
 				(path "/8ea515ea-bab1-45cc-8dd8-41301b605afe"
 					(reference "A1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Jumper:Jumper_2_Open")
-		(at 132.08 88.9 0)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim yes)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "d0b384f1-3cfb-4aad-8f6c-48ab81996177")
-		(property "Reference" "JP2"
-			(at 132.08 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "CFG_1"
-			(at 132.08 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "solder_bridge:bridge"
-			(at 132.08 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 132.08 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Jumper, 2-pole, open"
-			(at 132.08 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "9c46a9c4-0096-4532-8b66-7af61a9855b4")
-		)
-		(pin "2"
-			(uuid "b8378d10-4de0-4b31-9324-0711e7790a51")
-		)
-		(instances
-			(project ""
-				(path "/8ea515ea-bab1-45cc-8dd8-41301b605afe"
-					(reference "JP2")
 					(unit 1)
 				)
 			)
