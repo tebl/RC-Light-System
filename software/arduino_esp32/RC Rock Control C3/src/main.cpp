@@ -36,7 +36,7 @@ LED LED_FRONT_RIGHT = { PIN_LED_4, LED_4_LOW, LED_4_HIGH, LED_4_DEFAULT, -1 }; /
 bool builtin_value = false;
 unsigned long builtin_timer = -1;
 
-uint8_t current_mode = MODE_BREATHING;
+uint8_t current_mode = DEFAULT_MODE;
 
 
 void set_led(LED *led, int new_value) {
@@ -195,38 +195,133 @@ void process_breathing() {
 
 
 void process_dual() {
+  // going forward
+  if (CH2.state == STATE_POSITIVE) {
+    switch (CH1.state) {
+    case STATE_POSITIVE: // while turning right
+      set_led(&LED_FRONT_LEFT, map(CH2.value, 0, 100, LED_FRONT_LEFT.low, LED_FRONT_LEFT.high));
+      set_led(&LED_FRONT_RIGHT, map(CH1.value, 0, 100, CH2.value, LED_FRONT_RIGHT.high));
+      break;
 
+    case STATE_NEGATIVE: // while turning left
+      set_led(&LED_FRONT_LEFT, map(CH1.value, -100, 0, LED_FRONT_LEFT.high, CH2.value));
+      set_led(&LED_FRONT_RIGHT, map(CH2.value, 0, 100, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
+      break;
+
+    case STATE_IDLE:
+    default:
+      set_led(&LED_FRONT_LEFT, map(CH2.value, 0, 100, LED_FRONT_LEFT.low, LED_FRONT_LEFT.high));
+      set_led(&LED_FRONT_RIGHT, map(CH2.value, 0, 100, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
+      break;
+    }
+
+    set_led(&LED_REAR_LEFT, LED_REAR_LEFT.low);
+    set_led(&LED_REAR_RIGHT, LED_REAR_RIGHT.low);
+    return;
+  }
+
+  // going nowhere...
+  if (CH2.state == STATE_IDLE) {
+    switch (CH1.state) {
+    case STATE_POSITIVE: // while turning right
+      set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
+      set_led(&LED_FRONT_RIGHT, map(CH1.value, 0, 100, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
+      break;
+
+    case STATE_NEGATIVE: // while turning left
+      set_led(&LED_FRONT_LEFT, map(CH1.value, -100, 0, LED_FRONT_LEFT.high, LED_FRONT_LEFT.low));
+      set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
+      break;
+
+    case STATE_IDLE:
+    default:
+      set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
+      set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
+      break;
+    }
+
+    set_led(&LED_REAR_LEFT, LED_REAR_LEFT.low);
+    set_led(&LED_REAR_RIGHT, LED_REAR_RIGHT.low);
+    return;
+  }
+
+
+  // going backwards
+  if (CH2.state == STATE_NEGATIVE) {
+    switch (CH1.state) {
+    case STATE_POSITIVE: // while turning right
+      set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
+      set_led(&LED_FRONT_RIGHT, map(CH1.value, 0, 100, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
+      break;
+
+    case STATE_NEGATIVE: // while turning left
+      set_led(&LED_FRONT_LEFT, map(CH1.value, -100, 0, LED_FRONT_LEFT.high, LED_FRONT_LEFT.low));
+      set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
+      break;
+
+    case STATE_IDLE:
+    default:
+      set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
+      set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
+      break;
+    }
+
+    set_led(&LED_REAR_LEFT, map(CH2.value, -100, 0, LED_REAR_LEFT.high, LED_REAR_LEFT.low));
+    set_led(&LED_REAR_RIGHT, map(CH2.value, -100, 0, LED_REAR_RIGHT.high, LED_REAR_RIGHT.low));
+    return;
+  }
+
+  // shouldn't be able to get here
+  set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
+  set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
+  set_led(&LED_REAR_LEFT, LED_REAR_LEFT.low);
+  set_led(&LED_REAR_RIGHT, LED_REAR_RIGHT.low);
 }
 
 
 void process_single() {
+  // going forwards
   if (CH2.state == STATE_POSITIVE) {
     set_led(&LED_FRONT_LEFT, map(CH2.value, 0, 100, LED_FRONT_LEFT.low, LED_FRONT_LEFT.high));
     set_led(&LED_FRONT_RIGHT, map(CH2.value, 0, 100, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
-    set_led(&LED_REAR_LEFT, 0);
-    set_led(&LED_REAR_RIGHT, 0);
+    set_led(&LED_REAR_LEFT, LED_REAR_LEFT.low);
+    set_led(&LED_REAR_RIGHT, LED_REAR_RIGHT.low);
+    return;
   }
 
+  // going nowhere...
+  if (CH2.state == STATE_IDLE) {
+    set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
+    set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
+    set_led(&LED_REAR_LEFT, LED_REAR_LEFT.low);
+    set_led(&LED_REAR_RIGHT, LED_REAR_RIGHT.low);
+    return;
+  }
+
+  // going backwards
   if (CH2.state == STATE_NEGATIVE) {
-    set_led(&LED_FRONT_LEFT, 0);
-    set_led(&LED_FRONT_RIGHT, 0);
+    set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
+    set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
     set_led(&LED_REAR_LEFT, map(CH2.value, -100, 0, LED_REAR_LEFT.high, LED_REAR_LEFT.low));
     set_led(&LED_REAR_RIGHT, map(CH2.value, -100, 0, LED_REAR_RIGHT.high, LED_REAR_RIGHT.low));
+    return;
   }
 
-  if (CH2.state == STATE_IDLE) {
-    set_led(&LED_FRONT_LEFT, 0);
-    set_led(&LED_FRONT_RIGHT, 0);
-    set_led(&LED_REAR_LEFT, 0);
-    set_led(&LED_REAR_RIGHT, 0);
-  }
+  // shouldn't be able to get here
+  set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
+  set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
+  set_led(&LED_REAR_LEFT, LED_REAR_LEFT.low);
+  set_led(&LED_REAR_RIGHT, LED_REAR_RIGHT.low);
 }
 
 
 void process_dynamic() {
   if (CH1.available && CH2.available) {
-    //process_dual();
-    process_single();
+    process_dual();
+    // if (LED_FRONT_LEFT.value < LED_FRONT_LEFT.low) LED_FRONT_LEFT.value = LED_FRONT_LEFT.low;
+    // if (LED_FRONT_RIGHT.value < LED_FRONT_RIGHT.low) LED_FRONT_RIGHT.value = LED_FRONT_RIGHT.low;
+    // if (LED_REAR_LEFT.value < LED_REAR_LEFT.low) LED_REAR_LEFT.value = LED_REAR_LEFT.low;
+    // if (LED_REAR_RIGHT.value < LED_REAR_RIGHT.low) LED_REAR_RIGHT.value = LED_REAR_RIGHT.low;
   } else {
     process_single();
   }
@@ -237,6 +332,10 @@ void process_leds() {
   switch (current_mode) {
     case MODE_DYNAMIC:
       process_dynamic();
+      break;
+
+    case MODE_SINGLE:
+      process_single();
       break;
 
     case MODE_BREATHING:

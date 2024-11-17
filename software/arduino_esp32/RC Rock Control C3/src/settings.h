@@ -8,7 +8,7 @@
 #define CH2_PULSE_MIN 1000
 #define CH2_PULSE_MAX 2000
 
-#define LED_1_LOW 32
+#define LED_1_LOW 16
 #define LED_1_HIGH 255
 #define LED_1_DEFAULT LED_1_LOW
 #define LED_2_LOW LED_1_LOW
@@ -24,6 +24,7 @@
 #define LED_STEPS 10
 #define BLINKER_SPEED 375
 #define BREATHING_SPEED 2000
+#define DEFAULT_MODE MODE_DYNAMIC
 
 /* The hardware can combine two outputs in order to have a difference in
  * brightness, allowing a light to operate in three modes: off/low/high.
