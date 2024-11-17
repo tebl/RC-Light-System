@@ -194,7 +194,7 @@ void process_breathing() {
 }
 
 
-void process_dual() {
+void process_dynamic_dual() {
   // going forward
   if (CH2.state == STATE_POSITIVE) {
     switch (CH1.state) {
@@ -279,7 +279,7 @@ void process_dual() {
 }
 
 
-void process_single() {
+void process_dynamic_single() {
   // going forwards
   if (CH2.state == STATE_POSITIVE) {
     set_led(&LED_FRONT_LEFT, map(CH2.value, 0, 100, LED_FRONT_LEFT.low, LED_FRONT_LEFT.high));
@@ -323,20 +323,103 @@ void process_single() {
  */
 void process_dynamic() {
   if (CH1.available && CH2.available) {
-    process_dual();
+    process_dynamic_dual();
     // if (LED_FRONT_LEFT.value < LED_FRONT_LEFT.low) LED_FRONT_LEFT.value = LED_FRONT_LEFT.low;
     // if (LED_FRONT_RIGHT.value < LED_FRONT_RIGHT.low) LED_FRONT_RIGHT.value = LED_FRONT_RIGHT.low;
     // if (LED_REAR_LEFT.value < LED_REAR_LEFT.low) LED_REAR_LEFT.value = LED_REAR_LEFT.low;
     // if (LED_REAR_RIGHT.value < LED_REAR_RIGHT.low) LED_REAR_RIGHT.value = LED_REAR_RIGHT.low;
   } else {
-    process_single();
+    process_dynamic_single();
   }
 }
+
+
+/* LEDs will always be HIGH in the direction we're currently travelling in,
+ * but the opposite end of the car will fade towards the low value. The dual
+ * version will also adapt according to the direction of steering.
+ */
+void process_inverted_dual() {
+  // going forward
+  if (CH2.state == STATE_POSITIVE) {
+    switch (CH1.state) {
+      case STATE_POSITIVE: // while turning right
+        set_led(&LED_FRONT_RIGHT, map(CH2.value, 0, 100, LED_FRONT_RIGHT.high, LED_FRONT_RIGHT.low));
+        set_led(&LED_FRONT_LEFT, map(CH1.value, 0, 100, LED_FRONT_RIGHT.value, LED_FRONT_RIGHT.low));
+        break;
+
+      case STATE_IDLE:
+      default:
+        set_led(&LED_FRONT_LEFT, map(CH2.value, 0, 100, LED_FRONT_LEFT.high, LED_FRONT_LEFT.low));
+        set_led(&LED_FRONT_RIGHT, map(CH2.value, 0, 100, LED_FRONT_RIGHT.high, LED_FRONT_RIGHT.low));
+        break;
+
+      case STATE_NEGATIVE: // while turning left
+        set_led(&LED_FRONT_LEFT, map(CH2.value, 0, 100, LED_FRONT_RIGHT.high, LED_FRONT_LEFT.low));
+        set_led(&LED_FRONT_RIGHT, map(CH1.value, -100, 0, LED_FRONT_RIGHT.low, LED_FRONT_LEFT.value));
+        break;
+    }
+
+    set_led(&LED_REAR_LEFT, map(CH2.value, 0, 100, LED_REAR_LEFT.high, LED_REAR_LEFT.low));
+    set_led(&LED_REAR_RIGHT, map(CH2.value, 0, 100, LED_REAR_RIGHT.high, LED_REAR_RIGHT.low));
+    return;
+  }
+
+  // going nowhere...
+  if (CH2.state == STATE_IDLE) {
+    switch (CH1.state) {
+      case STATE_POSITIVE: // while turning right
+        set_led(&LED_FRONT_LEFT, map(CH1.value, 0, 100, LED_FRONT_LEFT.high, LED_FRONT_LEFT.low));
+        set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.high);
+        break;
+
+      default:
+      case STATE_IDLE:
+        set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.high);
+        set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.high);
+        break;
+
+      case STATE_NEGATIVE: // while turning left
+        set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.high);
+        set_led(&LED_FRONT_RIGHT, map(CH1.value, -100, 0, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
+        break;
+    }
+    set_led(&LED_REAR_LEFT, LED_REAR_LEFT.high);
+    set_led(&LED_REAR_RIGHT, LED_REAR_RIGHT.high);
+    return;
+  }
+
+
+  // going backwards
+  if (CH2.state == STATE_NEGATIVE) {
+    switch (CH1.state) {
+      case STATE_POSITIVE: // while turning right
+        set_led(&LED_FRONT_RIGHT, map(CH2.value, -100, 0, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
+        set_led(&LED_FRONT_LEFT, map(CH1.value, 0, 100, LED_FRONT_RIGHT.value, LED_FRONT_RIGHT.low));
+        break;
+
+      case STATE_IDLE:
+      default:
+        set_led(&LED_FRONT_LEFT, map(CH2.value, -100, 0, LED_FRONT_LEFT.low, LED_FRONT_LEFT.high));
+        set_led(&LED_FRONT_RIGHT, map(CH2.value, -100, 0, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
+        break;
+
+      case STATE_NEGATIVE: // while turning left
+        set_led(&LED_FRONT_LEFT, map(CH2.value, -100, 0, LED_FRONT_RIGHT.low, LED_FRONT_LEFT.high));
+        set_led(&LED_FRONT_RIGHT, map(CH1.value, -100, 0, LED_FRONT_RIGHT.low, LED_FRONT_LEFT.value));
+        break;
+    }
+
+    set_led(&LED_REAR_LEFT, map(CH2.value, -100, 0, LED_REAR_LEFT.low, LED_REAR_LEFT.high));
+    set_led(&LED_REAR_RIGHT, map(CH2.value, -100, 0, LED_REAR_RIGHT.low, LED_REAR_RIGHT.high));
+    return;
+  }
+}
+
 
 /* LEDs will always be HIGH in the direction we're currently travelling in,
  * but the opposite end of the car will fade towards the low value.
  */
-void process_inverted() {
+void process_inverted_single() {
   // going forwards
   if (CH2.state == STATE_POSITIVE) {
     set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.high);
@@ -369,6 +452,19 @@ void process_inverted() {
   set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.high);
   set_led(&LED_REAR_LEFT, LED_REAR_LEFT.high);
   set_led(&LED_REAR_RIGHT, LED_REAR_RIGHT.high);
+}
+
+
+void process_inverted() {
+  if (CH1.available && CH2.available) {
+    process_inverted_dual();
+    // if (LED_FRONT_LEFT.value < LED_FRONT_LEFT.low) LED_FRONT_LEFT.value = LED_FRONT_LEFT.low;
+    // if (LED_FRONT_RIGHT.value < LED_FRONT_RIGHT.low) LED_FRONT_RIGHT.value = LED_FRONT_RIGHT.low;
+    // if (LED_REAR_LEFT.value < LED_REAR_LEFT.low) LED_REAR_LEFT.value = LED_REAR_LEFT.low;
+    // if (LED_REAR_RIGHT.value < LED_REAR_RIGHT.low) LED_REAR_RIGHT.value = LED_REAR_RIGHT.low;
+  } else {
+    process_inverted_single();
+  }
 }
 
 
