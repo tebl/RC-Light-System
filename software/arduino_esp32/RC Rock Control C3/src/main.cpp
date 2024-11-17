@@ -315,6 +315,12 @@ void process_single() {
 }
 
 
+/* LEDs will always be in their LOW setting, but will be reinforced by the
+ * direction that we're travelling (up to max value). For example you'll
+ * find that on 50% forward throttle the front tires will be at the halfway
+ * point between low/high, but on a hard right - the right front tire will
+ * be boosted up to high.
+ */
 void process_dynamic() {
   if (CH1.available && CH2.available) {
     process_dual();
@@ -327,6 +333,44 @@ void process_dynamic() {
   }
 }
 
+/* LEDs will always be HIGH in the direction we're currently travelling in,
+ * but the opposite end of the car will fade towards the low value.
+ */
+void process_inverted() {
+  // going forwards
+  if (CH2.state == STATE_POSITIVE) {
+    set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.high);
+    set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.high);
+    set_led(&LED_REAR_LEFT, map(CH2.value, 0, 100, LED_REAR_LEFT.high, LED_REAR_LEFT.low));
+    set_led(&LED_REAR_RIGHT, map(CH2.value, 0, 100, LED_REAR_RIGHT.high, LED_REAR_RIGHT.low));
+    return;
+  }
+
+  // going nowhere...
+  if (CH2.state == STATE_IDLE) {
+    set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.high);
+    set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.high);
+    set_led(&LED_REAR_LEFT, LED_REAR_LEFT.high);
+    set_led(&LED_REAR_RIGHT, LED_REAR_RIGHT.high);
+    return;
+  }
+
+  // going backwards
+  if (CH2.state == STATE_NEGATIVE) {
+    set_led(&LED_FRONT_LEFT, map(CH2.value, -100, 0, LED_REAR_LEFT.low, LED_REAR_LEFT.high));
+    set_led(&LED_FRONT_RIGHT, map(CH2.value, -100, 0, LED_REAR_RIGHT.low, LED_REAR_RIGHT.high));
+    set_led(&LED_REAR_LEFT, LED_REAR_LEFT.high);
+    set_led(&LED_REAR_RIGHT, LED_REAR_RIGHT.high);
+    return;
+  }
+
+  // shouldn't be able to get here
+  set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.high);
+  set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.high);
+  set_led(&LED_REAR_LEFT, LED_REAR_LEFT.high);
+  set_led(&LED_REAR_RIGHT, LED_REAR_RIGHT.high);
+}
+
 
 void process_leds() {
   switch (current_mode) {
@@ -334,8 +378,8 @@ void process_leds() {
       process_dynamic();
       break;
 
-    case MODE_SINGLE:
-      process_single();
+    case MODE_INVERTED:
+      process_inverted();
       break;
 
     case MODE_BREATHING:

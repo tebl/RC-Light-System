@@ -24,7 +24,7 @@
 #define LED_STEPS 10
 #define BLINKER_SPEED 375
 #define BREATHING_SPEED 2000
-#define DEFAULT_MODE MODE_DYNAMIC
+#define DEFAULT_MODE MODE_INVERTED
 
 /* The hardware can combine two outputs in order to have a difference in
  * brightness, allowing a light to operate in three modes: off/low/high.

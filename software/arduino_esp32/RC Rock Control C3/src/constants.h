@@ -18,7 +18,7 @@
 
 #define MODE_DISABLED 0
 #define MODE_DYNAMIC 1
-#define MODE_SINGLE 2
+#define MODE_INVERTED 2
 #define MODE_BREATHING 3
 #define MODE_LOW 4
 #define MODE_HIGH 5
