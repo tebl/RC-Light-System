@@ -4423,7 +4423,7 @@
 		(descr "Through hole straight pin header, 1x02, 1.00mm pitch, single row")
 		(tags "Through hole pin header THT 1x02 1.00mm single row")
 		(property "Reference" "JP3"
-			(at 0 2.54 360)
+			(at 0 2.54 0)
 			(layer "B.SilkS")
 			(hide yes)
 			(uuid "d42983c0-da3b-48be-bb6f-c7b6d89ecf4e")
@@ -4449,7 +4449,7 @@
 			)
 		)
 		(property "Footprint" "solder_bridge:bridge"
-			(at 0 0 360)
+			(at 0 0 0)
 			(layer "B.Fab")
 			(hide yes)
 			(uuid "27492c48-3d37-42df-b64f-e1f55b575c39")
@@ -4462,7 +4462,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 360)
+			(at 0 0 0)
 			(layer "B.Fab")
 			(hide yes)
 			(uuid "d2de46c3-8004-45c2-b3ed-ce693fffb8c5")
@@ -4475,7 +4475,7 @@
 			)
 		)
 		(property "Description" "Jumper, 2-pole, open"
-			(at 0 0 360)
+			(at 0 0 0)
 			(layer "B.Fab")
 			(hide yes)
 			(uuid "1f78b6cf-416a-4c43-9647-f4507917347f")
@@ -4553,7 +4553,7 @@
 			(uuid "de9ad576-2fdc-4fb8-bbcd-5add5700f069")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 1.5875 360)
+			(at 0 1.5875 0)
 			(layer "B.Fab")
 			(uuid "a65bcb37-dc9f-4788-bbdf-8be5890ab6d3")
 			(effects
@@ -5585,12 +5585,12 @@
 		(uuid "fe821d39-da1d-43f0-b920-56ab19bb3b22")
 	)
 	(segment
-		(start 104.14 79.6925)
+		(start 104.775 79.6925)
 		(end 101.384184 79.6925)
 		(width 0.25)
 		(layer "B.Cu")
 		(net 9)
-		(uuid "c7e58520-e01e-4095-b8ef-f8341f5ebe3f")
+		(uuid "2e0c653f-216f-4a0d-9f4b-3681a00c3d2d")
 	)
 	(segment
 		(start 106.68 94.613604)
