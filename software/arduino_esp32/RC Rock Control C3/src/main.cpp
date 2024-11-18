@@ -198,21 +198,21 @@ void process_dynamic_dual() {
   // going forward
   if (CH2.state == STATE_POSITIVE) {
     switch (CH1.state) {
-    case STATE_POSITIVE: // while turning right
-      set_led(&LED_FRONT_LEFT, map(CH2.value, 0, 100, LED_FRONT_LEFT.low, LED_FRONT_LEFT.high));
-      set_led(&LED_FRONT_RIGHT, map(CH1.value, 0, 100, CH2.value, LED_FRONT_RIGHT.high));
-      break;
+      case STATE_POSITIVE: // while turning right
+        set_led(&LED_FRONT_LEFT, map(CH2.value, 0, 100, LED_FRONT_LEFT.low, LED_FRONT_LEFT.high));
+        set_led(&LED_FRONT_RIGHT, map(CH1.value, 0, 100, LED_FRONT_LEFT.value, LED_FRONT_RIGHT.high));
+        break;
 
-    case STATE_NEGATIVE: // while turning left
-      set_led(&LED_FRONT_LEFT, map(CH1.value, -100, 0, LED_FRONT_LEFT.high, CH2.value));
-      set_led(&LED_FRONT_RIGHT, map(CH2.value, 0, 100, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
-      break;
+      default:
+      case STATE_IDLE:
+        set_led(&LED_FRONT_LEFT, map(CH2.value, 0, 100, LED_FRONT_LEFT.low, LED_FRONT_LEFT.high));
+        set_led(&LED_FRONT_RIGHT, map(CH2.value, 0, 100, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
+        break;
 
-    case STATE_IDLE:
-    default:
-      set_led(&LED_FRONT_LEFT, map(CH2.value, 0, 100, LED_FRONT_LEFT.low, LED_FRONT_LEFT.high));
-      set_led(&LED_FRONT_RIGHT, map(CH2.value, 0, 100, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
-      break;
+      case STATE_NEGATIVE: // while turning left
+        set_led(&LED_FRONT_RIGHT, map(CH2.value, 0, 100, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
+        set_led(&LED_FRONT_LEFT, map(CH1.value, -100, 0, LED_FRONT_LEFT.high, LED_FRONT_RIGHT.value));
+        break;
     }
 
     set_led(&LED_REAR_LEFT, LED_REAR_LEFT.low);
@@ -223,21 +223,21 @@ void process_dynamic_dual() {
   // going nowhere...
   if (CH2.state == STATE_IDLE) {
     switch (CH1.state) {
-    case STATE_POSITIVE: // while turning right
-      set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
-      set_led(&LED_FRONT_RIGHT, map(CH1.value, 0, 100, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
-      break;
+      case STATE_POSITIVE: // while turning right
+        set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
+        set_led(&LED_FRONT_RIGHT, map(CH1.value, 0, 100, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
+        break;
 
-    case STATE_NEGATIVE: // while turning left
-      set_led(&LED_FRONT_LEFT, map(CH1.value, -100, 0, LED_FRONT_LEFT.high, LED_FRONT_LEFT.low));
-      set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
-      break;
+      default:
+      case STATE_IDLE:
+        set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
+        set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
+        break;
 
-    case STATE_IDLE:
-    default:
-      set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
-      set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
-      break;
+      case STATE_NEGATIVE: // while turning left
+        set_led(&LED_FRONT_LEFT, map(CH1.value, -100, 0, LED_FRONT_LEFT.high, LED_FRONT_LEFT.low));
+        set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
+        break;
     }
 
     set_led(&LED_REAR_LEFT, LED_REAR_LEFT.low);
@@ -249,21 +249,21 @@ void process_dynamic_dual() {
   // going backwards
   if (CH2.state == STATE_NEGATIVE) {
     switch (CH1.state) {
-    case STATE_POSITIVE: // while turning right
-      set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
-      set_led(&LED_FRONT_RIGHT, map(CH1.value, 0, 100, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
-      break;
+      case STATE_POSITIVE: // while turning right
+        set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
+        set_led(&LED_FRONT_RIGHT, map(CH1.value, 0, 100, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
+        break;
 
-    case STATE_NEGATIVE: // while turning left
-      set_led(&LED_FRONT_LEFT, map(CH1.value, -100, 0, LED_FRONT_LEFT.high, LED_FRONT_LEFT.low));
-      set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
-      break;
+      default:
+      case STATE_IDLE:
+        set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
+        set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
+        break;
 
-    case STATE_IDLE:
-    default:
-      set_led(&LED_FRONT_LEFT, LED_FRONT_LEFT.low);
-      set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
-      break;
+      case STATE_NEGATIVE: // while turning left
+        set_led(&LED_FRONT_LEFT, map(CH1.value, -100, 0, LED_FRONT_LEFT.high, LED_FRONT_LEFT.low));
+        set_led(&LED_FRONT_RIGHT, LED_FRONT_RIGHT.low);
+        break;
     }
 
     set_led(&LED_REAR_LEFT, map(CH2.value, -100, 0, LED_REAR_LEFT.high, LED_REAR_LEFT.low));
@@ -347,8 +347,8 @@ void process_inverted_dual() {
         set_led(&LED_FRONT_LEFT, map(CH1.value, 0, 100, LED_FRONT_RIGHT.value, LED_FRONT_RIGHT.low));
         break;
 
-      case STATE_IDLE:
       default:
+      case STATE_IDLE:
         set_led(&LED_FRONT_LEFT, map(CH2.value, 0, 100, LED_FRONT_LEFT.high, LED_FRONT_LEFT.low));
         set_led(&LED_FRONT_RIGHT, map(CH2.value, 0, 100, LED_FRONT_RIGHT.high, LED_FRONT_RIGHT.low));
         break;
@@ -397,8 +397,8 @@ void process_inverted_dual() {
         set_led(&LED_FRONT_LEFT, map(CH1.value, 0, 100, LED_FRONT_RIGHT.value, LED_FRONT_RIGHT.low));
         break;
 
-      case STATE_IDLE:
       default:
+      case STATE_IDLE:
         set_led(&LED_FRONT_LEFT, map(CH2.value, -100, 0, LED_FRONT_LEFT.low, LED_FRONT_LEFT.high));
         set_led(&LED_FRONT_RIGHT, map(CH2.value, -100, 0, LED_FRONT_RIGHT.low, LED_FRONT_RIGHT.high));
         break;
