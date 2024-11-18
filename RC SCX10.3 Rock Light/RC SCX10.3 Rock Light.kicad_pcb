@@ -1102,7 +1102,7 @@
 		(descr "LED SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator")
 		(tags "LED handsolder")
 		(property "Reference" "D2"
-			(at 0 0 0)
+			(at 0 -1.865 0)
 			(layer "B.SilkS")
 			(uuid "17bd1274-018a-4e44-8999-39360cc9b16e")
 			(effects
@@ -1343,7 +1343,7 @@
 		(descr "LED SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator")
 		(tags "LED handsolder")
 		(property "Reference" "D1"
-			(at 0 0 0)
+			(at 0 1.805 0)
 			(layer "B.SilkS")
 			(uuid "4e3f5707-39dc-4929-8116-9aa487f075fb")
 			(effects
@@ -1584,7 +1584,7 @@
 		(descr "LED SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator")
 		(tags "LED handsolder")
 		(property "Reference" "D3"
-			(at 0 0 0)
+			(at 0 1.805 0)
 			(layer "B.SilkS")
 			(uuid "fa7d627d-10b9-472b-98b5-6be231defa0f")
 			(effects
@@ -1817,6 +1817,66 @@
 				(xyz 0 0 0)
 			)
 		)
+	)
+	(gr_line
+		(start 143.8656 90.2462)
+		(end 143.8656 91.5162)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "B.SilkS")
+		(uuid "08354ba2-a9ec-424f-bd0d-042313511f5d")
+	)
+	(gr_line
+		(start 148.082 92.6338)
+		(end 148.082 93.9038)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "B.SilkS")
+		(uuid "0df87430-4781-4318-8e97-469432ce9fd6")
+	)
+	(gr_line
+		(start 139.3825 93.2688)
+		(end 140.0175 93.2688)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "B.SilkS")
+		(uuid "0fc41c4a-9609-4776-92fc-51cc94c38834")
+	)
+	(gr_line
+		(start 148.082 93.2688)
+		(end 148.717 93.2688)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "B.SilkS")
+		(uuid "2580de60-5add-4e28-9016-65b91b9624ae")
+	)
+	(gr_line
+		(start 139.3825 92.6338)
+		(end 139.3825 93.9038)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "B.SilkS")
+		(uuid "26f7c7eb-645d-4888-8334-0b4194cf0970")
+	)
+	(gr_line
+		(start 143.8656 90.8812)
+		(end 144.5006 90.8812)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "B.SilkS")
+		(uuid "58723cba-3ead-4fe2-83fc-e0c5f46a573d")
 	)
 	(gr_line
 		(start 144.18 89.595)
